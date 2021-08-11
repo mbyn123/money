@@ -1,30 +1,25 @@
-import styled from "styled-components";
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { NavBar } from "components/NavBar";
+import { Layout } from "components/Layout";
 
 function App() {
   return (
     <Router>
-      <Wrapper>
-        <Main>
-          <Switch>
-            <Route path="/tags">
-              <Tags></Tags>
-            </Route>
-            <Route path="/money">
-              <Money></Money>
-            </Route>
-            <Route path="/statistics">
-              <Statistics></Statistics>
-            </Route>
-            <Redirect exact from="/" to="/money"></Redirect>
-            <Route path="*">
-              <NoMatch></NoMatch>
-            </Route>
-          </Switch>
-        </Main>
-        <NavBar/>
-      </Wrapper>
+      <Switch>
+        <Route exact path="/tags">
+          <Tags></Tags>
+        </Route>
+        <Route exact path="/money">
+          <Money></Money>
+        </Route>
+        <Route exact path="/statistics">
+          <Statistics></Statistics>
+        </Route>
+        <Redirect exact from="/" to="/money"></Redirect>
+        <Route path="*">
+          <NoMatch></NoMatch>
+        </Route>
+      </Switch>
+      
     </Router>
   );
 }
@@ -33,37 +28,21 @@ function App() {
 
 
 
-
-
-const Wrapper = styled.div`
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-
-`
-
-const Main = styled.div`
-flex:1;
-overflow: auto;
-`
-
-
-
 function Tags() {
   return (
-    <div>tags</div>
+    <Layout>tags</Layout>
   )
 }
 
 function Money() {
   return (
-    <div>money</div>
+    <Layout>money</Layout>
   )
 }
 
 function Statistics() {
   return (
-    <div>statistics</div>
+    <Layout>statistics</Layout>
   )
 }
 
