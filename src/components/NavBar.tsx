@@ -1,14 +1,31 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-
-export const NavBar = ()=>{
+require('svg/money.svg')
+require('svg/detail.svg')
+require('svg/chart.svg')
+export const NavBar = () => {
     return (
         <Nav>
             <ul>
-            <li><Link to="/tags">标签</Link></li>
-            <li><Link to="/money">记账</Link></li>
-            <li><Link to="/statistics">统计</Link></li>
-          </ul> 
+                <li>
+                    <Link to="/tags">
+                        <svg className="iocn"><use xlinkHref="#detail"></use> </svg>
+                        <div>标签</div>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/money">
+                        <svg className="iocn"><use xlinkHref="#money"></use> </svg>
+                        <div>记账</div>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/statistics">
+                        <svg className="iocn"><use xlinkHref="#chart"></use> </svg>
+                        <div>统计</div>
+                    </Link>
+                </li>
+            </ul>
         </Nav>
     )
 }
@@ -20,7 +37,7 @@ const Nav = styled.div`
 >li{
   width: 33.333%;
   text-align: center;
-  padding: 1.6rem;
+  padding: 1rem;
 }
 }
 `

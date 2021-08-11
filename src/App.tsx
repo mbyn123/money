@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HashRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { NavBar } from "components/NavBar";
 
 function App() {
