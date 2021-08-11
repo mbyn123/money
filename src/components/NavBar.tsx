@@ -1,27 +1,26 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-require('svg/money.svg')
-require('svg/detail.svg')
-require('svg/chart.svg')
+import { Icon } from "./Icon"
+
 export const NavBar = () => {
     return (
         <Nav>
             <ul>
                 <li>
                     <Link to="/tags">
-                        <svg className="iocn"><use xlinkHref="#detail"></use> </svg>
+                        <Icon name="detail"></Icon>
                         <div>标签</div>
                     </Link>
                 </li>
                 <li>
                     <Link to="/money">
-                        <svg className="iocn"><use xlinkHref="#money"></use> </svg>
+                        <Icon name="money"></Icon>
                         <div>记账</div>
                     </Link>
                 </li>
                 <li>
                     <Link to="/statistics">
-                        <svg className="iocn"><use xlinkHref="#chart"></use> </svg>
+                        <Icon name="chart"></Icon>
                         <div>统计</div>
                     </Link>
                 </li>
