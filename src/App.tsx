@@ -1,25 +1,29 @@
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Layout } from "components/Layout";
+import { Money } from 'views/Money';
+import { NoMatch } from 'views/NoMatch';
+import { Statistics } from 'views/Statistics';
+import { Tags } from 'views/Tags';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/tags">
-          <Tags></Tags>
+          <Tags />
         </Route>
         <Route exact path="/money">
-          <Money></Money>
+          <Money />
         </Route>
         <Route exact path="/statistics">
-          <Statistics></Statistics>
+          <Statistics />
         </Route>
+        {/* 重定向 */}
         <Redirect exact from="/" to="/money"></Redirect>
+        {/* 404 */}
         <Route path="*">
-          <NoMatch></NoMatch>
+          <NoMatch />
         </Route>
       </Switch>
-      
     </Router>
   );
 }
@@ -28,27 +32,12 @@ function App() {
 
 
 
-function Tags() {
-  return (
-    <Layout>tags</Layout>
-  )
-}
 
-function Money() {
-  return (
-    <Layout>money</Layout>
-  )
-}
 
-function Statistics() {
-  return (
-    <Layout>statistics</Layout>
-  )
-}
 
-function NoMatch() {
-  return <div>页面不存在</div>
-}
+
+
+
 
 
 
