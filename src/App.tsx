@@ -1,16 +1,16 @@
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Money } from 'views/money/Money';
+import { Detail } from 'views/detail';
+import { Money } from 'views/money';
 import { NoMatch } from 'views/NoMatch';
 import { Statistics } from 'views/Statistics';
-import { Tags } from 'views/Tags';
 
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/tags">
-          <Tags />
+        <Route exact path="/detail">
+          <Detail />
         </Route>
         <Route exact path="/money">
           <Money />
@@ -19,7 +19,7 @@ function App() {
           <Statistics />
         </Route>
         {/* 重定向 */}
-        <Redirect exact from="/" to="/tags"></Redirect>
+        <Redirect exact from="/" to="/detail"></Redirect>
         {/* 404 */}
         <Route path="*">
           <NoMatch />

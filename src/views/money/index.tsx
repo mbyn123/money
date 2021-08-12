@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Transition } from 'components/Transition';
 import { NavigationBar } from "./NavigationBar"
+import styled from 'styled-components';
+import { Tags } from './Tags';
+import { Note } from './Note';
+import { NumberPad } from './NumberPad';
 
 
 
@@ -24,10 +28,19 @@ export const Money = () => {
             isShow={show}
             timeout={time}
         >
-            <div style={{ border: "1px solid black", backgroundColor: "red", height: '100vh' }}>
+            <Wrapper>
                 <NavigationBar close={close}></NavigationBar>
-            </div>
+                <Tags></Tags>
+                <Note></Note>
+                <NumberPad></NumberPad>
+            </Wrapper>
         </Transition>
 
     )
 }
+
+
+const Wrapper = styled.div`
+box-sizing:border-box;
+height: 100vh;
+`

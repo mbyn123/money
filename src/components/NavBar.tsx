@@ -7,7 +7,7 @@ export const NavBar = () => {
         <Nav>
             <ul>
                 <li>
-                    <NavLink to="/tags" activeClassName="selected">
+                    <NavLink to="/detail" activeClassName="selected">
                         <Icon name="detail"></Icon>
                         <div>明细</div>
                     </NavLink >
@@ -43,7 +43,10 @@ const Nav = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      
+      color: #585757;
+      .icon{
+          fill:#585757;
+      }
       &.selected{
           color: #FFDA44;
         .icon{

@@ -1,8 +1,8 @@
 import { Layout } from "components/Layout"
 
 
-export const Tags = () => {
+export const Detail = () => {
     return (
-        <Layout>tags</Layout>
+        <Layout>detail</Layout>
     )
 }

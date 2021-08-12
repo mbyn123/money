@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { CSSTransition } from 'react-transition-group'
-import 'comm/scss/animate.scss';
+import 'scss/animate.scss';
 
 type props = {
     isShow: boolean,
