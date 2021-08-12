@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 import { Icon } from "./Icon"
 
@@ -7,22 +7,22 @@ export const NavBar = () => {
         <Nav>
             <ul>
                 <li>
-                    <Link to="/tags">
+                    <NavLink to="/tags" activeClassName="selected">
                         <Icon name="detail"></Icon>
                         <div>标签</div>
-                    </Link>
+                    </NavLink >
                 </li>
                 <li>
-                    <Link to="/money">
+                    <NavLink to="/money" activeClassName="selected">
                         <Icon name="money"></Icon>
                         <div>记账</div>
-                    </Link>
+                    </NavLink >
                 </li>
                 <li>
-                    <Link to="/statistics">
+                    <NavLink to="/statistics" activeClassName="selected">
                         <Icon name="chart"></Icon>
                         <div>统计</div>
-                    </Link>
+                    </NavLink >
                 </li>
             </ul>
         </Nav>
@@ -37,6 +37,20 @@ const Nav = styled.div`
   width: 33.333%;
   text-align: center;
   padding: 1rem;
+  
+  >a{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+      &.selected{
+          color: #FFDA44;
+        .icon{
+            fill: #FFDA44
+        } 
+      }
+  }
 }
 }
 `

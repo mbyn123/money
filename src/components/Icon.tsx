@@ -4,6 +4,6 @@ try {importAll(require.context('svg', true, /\.svg$/));} catch (error) {console.
 
 export const Icon = ({ name }: { name: string }) => {
     return (
-        <svg className="iocn"><use xlinkHref={"#" + name}></use> </svg>
+        <svg className="icon"><use xlinkHref={"#" + name}></use> </svg>
     )
 }
