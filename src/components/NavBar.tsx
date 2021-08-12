@@ -9,7 +9,7 @@ export const NavBar = () => {
                 <li>
                     <NavLink to="/tags" activeClassName="selected">
                         <Icon name="detail"></Icon>
-                        <div>标签</div>
+                        <div>明细</div>
                     </NavLink >
                 </li>
                 <li>
@@ -21,7 +21,7 @@ export const NavBar = () => {
                 <li>
                     <NavLink to="/statistics" activeClassName="selected">
                         <Icon name="chart"></Icon>
-                        <div>统计</div>
+                        <div>图表</div>
                     </NavLink >
                 </li>
             </ul>

@@ -1,8 +1,9 @@
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Money } from 'views/Money';
+import { Money } from 'views/money/Money';
 import { NoMatch } from 'views/NoMatch';
 import { Statistics } from 'views/Statistics';
 import { Tags } from 'views/Tags';
+
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Statistics />
         </Route>
         {/* 重定向 */}
-        <Redirect exact from="/" to="/money"></Redirect>
+        <Redirect exact from="/" to="/tags"></Redirect>
         {/* 404 */}
         <Route path="*">
           <NoMatch />
