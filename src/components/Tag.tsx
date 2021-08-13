@@ -2,16 +2,17 @@ import styled from "styled-components"
 import { Icon } from "./Icon"
 
 type Props = {
-    name: string,
-    title: string
-}
+    icon: string,
+    title: string,
+    onClick?: () => void
+} 
 
 export const Tag = (props: Props) => {
-    let { name, title } = props
+    let { icon, title, onClick } = props
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             <div className="icon-wrapper">
-                <Icon name={name}></Icon>
+                <Icon name={icon}></Icon>
             </div>
             <div className="title">{title}</div>
         </Wrapper>

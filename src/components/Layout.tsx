@@ -1,7 +1,8 @@
+import { ReactElement } from "react"
 import styled from "styled-components"
 import { NavBar } from "./NavBar"
 
-export const Layout = ({ children }: { children:any }) => {
+export const Layout = ({ children }: { children:ReactElement }) => {
     return (
         <Wrapper>
             <Main>{children}</Main>

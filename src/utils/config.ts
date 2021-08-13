@@ -1,32 +1,40 @@
-export const taglist = [
+const expend = [
     {
-        name: 'yule',
+        icon: 'yule',
         title: '娱乐',
         id: 1
     },
     {
-        name: 'jiaotong',
+        icon: 'jiaotong',
         title: '交通',
         id: 2
     },
     {
-        name: 'riyong',
+        icon: 'riyong',
         title: '日用',
         id: 3
     },
     {
-        name: 'gouwu',
+        icon: 'gouwu',
         title: '购物',
         id: 4
     },
     {
-        name: 'canyin',
+        icon: 'canyin',
         title: '餐饮',
         id: 5
-    },
-    {
-        name: 'add',
-        title: '添加',
-        id: 99999
     }
 ]
+
+const income = [
+    {
+        icon: 'canyin',
+        title: '工资',
+        id: 6
+    }
+]
+
+export const allTagList = {
+    '+': income,
+    '-': expend
+}

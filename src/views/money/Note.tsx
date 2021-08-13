@@ -1,7 +1,8 @@
+import React from "react"
 import styled from "styled-components"
 import remarkImg from 'assets/remark.png'
 
-export const Note = () => {
+export const Note:React.FC = () => {
     return (
         <Wrapper>
             <Remark>

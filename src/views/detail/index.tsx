@@ -3,6 +3,6 @@ import { Layout } from "components/Layout"
 
 export const Detail = () => {
     return (
-        <Layout>detail</Layout>
+        <Layout><div>detail</div></Layout>
     )
 }

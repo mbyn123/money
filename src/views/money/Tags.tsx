@@ -1,16 +1,32 @@
 import { Tag } from "components/Tag"
+import { useState } from "react"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components"
-import { taglist } from "utils/config"
+import { allTagList } from "utils/config"
 
+type tagItem = {
+    icon: string,
+    title: string,
+    id: number
+}
 
 export const Tags = () => {
+    let history = useHistory()
+    const [tags, ] = useState<tagItem[]>(allTagList['-'])
+   
+    const goToPage = ()=>{
+        history.push('/tagDetail')
+    }
     return (
         <Wrapper>
             {
-                taglist.map(item =>  <div className="tag-wrapper" key={item.id}>
-                    <Tag  name={item.name} title={item.title} />
-                    </div>)
+                tags.map(item => <TagWrapper key={item.id}>
+                    <Tag icon={item.icon} title={item.title} />
+                </TagWrapper>)
             }
+            <TagWrapper onClick={goToPage}>
+                <Tag icon='add' title='添加' onClick={()=>goToPage}/>
+            </TagWrapper>
         </Wrapper>
     )
 }
@@ -26,10 +42,12 @@ display: flex;
 flex-wrap: wrap;
 align-content: flex-start;
 padding: 2rem 0;
-.tag-wrapper{
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-}
+
+`
+
+const TagWrapper = styled.div`
+width: 25%;
+display: flex;
+justify-content: center;
+padding: 1rem 0;
 `

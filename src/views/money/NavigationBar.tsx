@@ -1,8 +1,8 @@
-import { useState } from "react"
+// import { useState } from "react"
 import styled from "styled-components"
 
 export const NavigationBar = ({ close }: { close: () => void }) => {
-    const [] = useState()
+    // const [] = useState()
     const handleClick = () => {
         close()
     }

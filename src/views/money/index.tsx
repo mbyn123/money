@@ -11,7 +11,7 @@ import { NumberPad } from './NumberPad';
 
 export const Money = () => {
     const [show, setShow] = useState(false);
-    let { goBack } = useHistory();
+    let history = useHistory()
     
     let time = 300
     useEffect(() => {
@@ -20,7 +20,7 @@ export const Money = () => {
 
     const close = () => {
         setShow(false)
-        setTimeout(() => { goBack() }, time)
+        setTimeout(() => { history.push('/detail') }, time)
     }
 
     return (
