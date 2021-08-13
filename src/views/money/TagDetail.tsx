@@ -62,7 +62,12 @@ export const TagDetail = () => {
 
 
 const Wrapper = styled.div`
+width: 100%;
 height: 100vh;
+position: fixed;
+top: 0;
+right: 0;
+background: white;
 `
 
 const Header = styled.header`
