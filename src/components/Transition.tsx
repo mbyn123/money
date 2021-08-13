@@ -5,17 +5,17 @@ import 'scss/animate.scss';
 type props = {
     isShow: boolean,
     timeout: number,
-    classNames?: string | 'alert',
+    classNames: 'alert' | 'slide',
     children: ReactElement
 }
 
 export const Transition = (props: props) => {
-    let { isShow, timeout, children } = props
+    let { isShow, timeout, children, classNames } = props
     return (
         <CSSTransition
             in={isShow}
             timeout={timeout}
-            classNames="alert"
+            classNames={classNames}
             unmountOnExit
         >
             {children}

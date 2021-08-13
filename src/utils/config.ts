@@ -1,40 +1,108 @@
+// 支出
 const expend = [
     {
         icon: 'yule',
-        title: '娱乐',
+        name: '娱乐',
         id: 1
     },
     {
         icon: 'jiaotong',
-        title: '交通',
+        name: '交通',
         id: 2
     },
     {
         icon: 'riyong',
-        title: '日用',
+        name: '日用',
         id: 3
     },
     {
         icon: 'gouwu',
-        title: '购物',
+        name: '购物',
         id: 4
     },
     {
         icon: 'canyin',
-        title: '餐饮',
+        name: '餐饮',
         id: 5
     }
 ]
 
+// 收入
 const income = [
     {
         icon: 'canyin',
-        title: '工资',
+        name: '工资',
         id: 6
     }
 ]
 
-export const allTagList = {
-    '+': income,
-    '-': expend
-}
+export const all = [
+    {
+        typeName: '娱乐',
+        iconList: [
+            {
+                icon: 'yule',
+
+                id: 1
+            },
+            {
+                icon: 'jiaotong',
+
+                id: 2
+            },
+            {
+                icon: 'riyong',
+
+                id: 3
+            },
+            {
+                icon: 'gouwu',
+
+                id: 4
+            },
+            {
+                icon: 'canyin',
+                id: 5
+            }
+        ]
+    },
+    {
+        typeName: '饮食',
+        iconList: [
+            {
+                icon: 'yule',
+                id: 1
+            },
+            {
+                icon: 'jiaotong',
+                id: 2
+            },
+            {
+                icon: 'riyong',
+                id: 3
+            },
+            {
+                icon: 'gouwu',
+                id: 4
+            },
+            {
+                icon: 'canyin',
+                id: 5
+            },
+            {
+                icon: 'canyin',
+                id: 6
+            },
+            {
+                icon: 'canyin',
+                id: 7
+            },
+            {
+                icon: 'canyin',
+                id: 8
+            }
+        ]
+    }
+]
+
+export const TagList = { '+': income, '-': expend }

@@ -1,32 +1,33 @@
 import { Tag } from "components/Tag"
+import { useTags } from "hooks/useTags"
 import { useState } from "react"
-import { useHistory } from "react-router-dom"
 import styled from "styled-components"
-import { allTagList } from "utils/config"
 
-type tagItem = {
-    icon: string,
-    title: string,
-    id: number
-}
+
 
 export const Tags = () => {
-    let history = useHistory()
-    const [tags, ] = useState<tagItem[]>(allTagList['-'])
-   
-    const goToPage = ()=>{
-        history.push('/tagDetail')
+    // let history = useHistory()
+    const { tags } = useTags('-')
+    const [selectId, setSelectId] = useState<number>(0)
+    const goToDetail = () => {
     }
+
+    // const addTag = () => {
+    //     const _tag = window.prompt('新标签的名称为')
+    //     console.log(_tag)
+    // }
     return (
         <Wrapper>
             {
                 tags.map(item => <TagWrapper key={item.id}>
-                    <Tag icon={item.icon} title={item.title} />
+                    <Tag icon={item.icon} name={item.name} select={item.id === selectId} onClick={()=>setSelectId(item.id)}/>
                 </TagWrapper>)
             }
-            <TagWrapper onClick={goToPage}>
-                <Tag icon='add' title='添加' onClick={()=>goToPage}/>
+            <TagWrapper>
+                <Tag icon='add' name='添加' onClick={goToDetail} />
+                {/* <Tag icon='add' name='添加' onClick={addTag}/> */}
             </TagWrapper>
+           
         </Wrapper>
     )
 }

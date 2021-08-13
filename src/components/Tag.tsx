@@ -3,40 +3,43 @@ import { Icon } from "./Icon"
 
 type Props = {
     icon: string,
-    title: string,
-    onClick?: () => void
-} 
+    name?: string,
+    onClick?: () => void,
+    select?: boolean,
+
+}
 
 export const Tag = (props: Props) => {
-    let { icon, title, onClick } = props
+    let { icon, name, onClick, select } = props
     return (
-        <Wrapper onClick={onClick}>
+        <Wrapper onClick={onClick} select={select} >
             <div className="icon-wrapper">
                 <Icon name={icon}></Icon>
             </div>
-            <div className="title">{title}</div>
+            {
+                name && <div className="name">{name}</div>
+            }
         </Wrapper>
     )
 }
 
-const Wrapper = styled.div`
-width: 5rem;
-height: 7rem;
+const Wrapper = styled.div<{
+    select?: boolean
+}>`
 text-align: center;
 .icon-wrapper{
-    width: 100%;
-    height: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #F5F5F5;
-    margin-bottom: .5rem;
+    background:${(props) => props.select ? '#FFDA44' : '#F5F5F5'} ;
+    margin-bottom: .4rem;
+    padding:.8rem;
    .icon{
     fill:#555454;
    }
 }
- .title{
+ .name{
     width: 100%;
     height: 1.5rem;
     font-size: 1.2rem;

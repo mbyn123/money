@@ -6,14 +6,15 @@ import styled from 'styled-components';
 import { Tags } from './Tags';
 import { Note } from './Note';
 import { NumberPad } from './NumberPad';
+import { TagDetail } from './TagDetail';
 
 
 
 export const Money = () => {
     const [show, setShow] = useState(false);
     let history = useHistory()
-    
-    let time = 300
+
+    const time = 300
     useEffect(() => {
         setShow(true)
     }, [])
@@ -27,13 +28,17 @@ export const Money = () => {
         <Transition
             isShow={show}
             timeout={time}
+            classNames='alert'
         >
-            <Wrapper>
-                <NavigationBar close={close}></NavigationBar>
-                <Tags></Tags>
-                <Note></Note>
-                <NumberPad></NumberPad>
-            </Wrapper>
+            <>
+                <Wrapper>
+                    <NavigationBar close={close}></NavigationBar>
+                    <Tags></Tags>
+                    <Note></Note>
+                    <NumberPad></NumberPad>
+                </Wrapper>
+                <TagDetail></TagDetail>
+            </>
         </Transition>
 
     )
