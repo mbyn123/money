@@ -1,33 +1,34 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Tag } from "components/Tag"
-import { useTags } from "hooks/useTags"
+import { tagItem, useTags } from "hooks/useTags"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
+import { _tagType } from "./Money"
 
 
 
-export const Tags = () => {
-    let history = useHistory()
-    const { tags } = useTags('-')
-    const [selectId, setSelectId] = useState<number>(1)
-    const goToDetail = () => {
-        history.push('/tagDetail')
-    }
+export const Tags = ({selectType}:{selectType:_tagType}) => {
+    const { push } = useHistory()
+    const { tags } = useTags(selectType)
+    const [selectId, setSelectId] = useState<number>(14)
 
-
+    useEffect(() => {
+       console.log(tags,'111111');
+    }, [tags]);
 
     return (
         <Wrapper>
             {
-                tags.map(item => <TagWrapper key={item.id}>
-                    <Tag icon={item.icon} name={item.name} select={item.id === selectId} onClick={()=>setSelectId(item.id)}/>
-                </TagWrapper>)
+                tags?.map((item:tagItem) => (
+                    <TagWrapper key={item.id}>
+                        <Tag icon={item.icon} name={item.name} select={item.id === selectId} onClick={() => setSelectId(item.id)} />
+                    </TagWrapper>)
+                )
             }
             <TagWrapper>
-                <Tag icon='add' name='添加' onClick={goToDetail} />
-                {/* <Tag icon='add' name='添加' onClick={addTag}/> */}
+                <Tag icon='add' name='添加' onClick={() => push(`/tagDetail/${selectType}`)} />
             </TagWrapper>
-           
+
         </Wrapper>
     )
 }

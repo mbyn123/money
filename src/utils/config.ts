@@ -1,45 +1,16 @@
+import { _tagType } from "views/Money/Money"
+
 // 支出
-const expend:[] = [
-    // {
-    //     icon: 'yule',
-    //     name: '娱乐',
-    //     id: 1
-    // },
-    // {
-    //     icon: 'jiaotong',
-    //     name: '交通',
-    //     id: 2
-    // },
-    // {
-    //     icon: 'riyong',
-    //     name: '日用',
-    //     id: 3
-    // },
-    // {
-    //     icon: 'gouwu',
-    //     name: '购物',
-    //     id: 4
-    // },
-    // {
-    //     icon: 'canyin',
-    //     name: '餐饮',
-    //     id: 5
-    // }
-]
+const expend:[] = []
+
 
 // 收入
-const income:[] = [
-    // {
-    //     icon: 'canyin',
-    //     name: '工资',
-    //     id: 6
-    // }
-]
+const income: [] = []
 
 const all = [
     {
         typeName: '娱乐',
-        typeId:1,
+        typeId: 1,
         iconList: [
             {
                 icon: 'yule',
@@ -65,7 +36,7 @@ const all = [
     },
     {
         typeName: '饮食',
-        typeId:2,
+        typeId: 2,
         iconList: [
             {
                 icon: 'yule',
@@ -103,4 +74,20 @@ const all = [
     }
 ]
 
-export const TagList = { '+': income, '-': expend,all }
+export const TagList = { '+': income, '-': expend, all }
+
+type _tagTypeList = {
+    type: _tagType,
+    name: string
+}
+
+export const tagTypeList: _tagTypeList[] = [
+    {
+        type: '-',
+        name: '支出'
+    },
+    {
+        type: '+',
+        name: '收入'
+    }
+]

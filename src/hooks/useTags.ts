@@ -2,13 +2,13 @@ import { useEffect, useState } from "react"
 import { TagList } from "utils/config"
 
 
-type tagItem = {
+export type tagItem = {
     icon: string,
     name: string,
     id: number
 }
 
-type tagType = {
+export type tagType = {
     '-': string,
     '+': string
 }
@@ -19,24 +19,27 @@ type allTagItem = {
     iconList: Omit<tagItem, 'name'>[]
 }
 
+
+
 export const useTags = (type: keyof tagType) => {
-    const [tags, setTags] = useState<tagItem[]>(TagList[type])
-
-    const addTags = (tag: tagItem) => {
-        setTags([...tags, tag])
-
+    const [data, setData] = useState(TagList)
+    const tags = data[type]
+    const addTags = (val: tagItem) => {
+        setData({ ...data, [type]: { ...tags, val } })
     }
 
-    useEffect(() => {
-        if (!tags.length) {
-            const _tags = window.localStorage.getItem(type)
-            _tags?.length && setTags(JSON.parse(_tags))
-        }
-    }, [tags.length,type])
+
+
+    // useEffect(() => {
+    //     if (!tags.length) {
+    //         const _tags = window.localStorage.getItem(type)
+    //         _tags?.length && setData(JSON.parse(_tags))
+    //     }
+    // }, [data])
 
     useEffect(() => {
         window.localStorage.setItem(type, JSON.stringify(tags))
-    }, [tags,type])
+    }, [data])
 
     const findTags = (key: keyof tagItem, value: number | string) => {
         return tags.find(item => item[key] === value)

@@ -1,8 +1,17 @@
-// import { useState } from "react"
 import styled from "styled-components"
+import { tagTypeList } from "utils/config"
+import { _tagType } from "./Money"
 
-export const NavigationBar = ({ close }: { close: () => void }) => {
-    // const [] = useState()
+type props = {
+    selectType: string,
+    onSelect: (type: _tagType) => void,
+    close: () => void
+}
+
+
+
+export const NavigationBar = ({ selectType, onSelect, close }: props) => {
+
     const handleClick = () => {
         close()
     }
@@ -11,8 +20,12 @@ export const NavigationBar = ({ close }: { close: () => void }) => {
             <Main>
                 <Nav>
                     <ul>
-                        <li className="checked">支出</li>
-                        <li>收入</li>
+                        {
+                            tagTypeList.map(item => (
+                                <li onClick={() => onSelect(item.type)} key={item.type} className={selectType === item.type ? "checked" : ''}>{item.name}</li>
+                            ))
+                        }
+
                     </ul>
                 </Nav>
                 <Button onClick={handleClick}>取消</Button>
@@ -41,16 +54,16 @@ const Nav = styled.div`
 flex: 1;
 >ul{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     >li{
         padding:1rem 2rem;
         font-weight: 600;
-        /* border: px solid red; */
        
     }
     >.checked{
-        border-bottom: 2px solid;
+        box-sizing: border-box;
+        border-bottom: .2rem solid;
     }
 }
 `
@@ -58,5 +71,5 @@ flex: 1;
 const Button = styled.div`
 position: absolute;
 right: 2rem;
-bottom: 1rem;
+bottom: 1.2rem;
 `

@@ -3,7 +3,9 @@ import { Transition } from "components/Transition"
 import { useAllTags, useTags } from "hooks/useTags";
 import { useVsible } from "hooks/useVsible";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { _tagType } from "./Money";
 
 type tagType = {
     icon: string,
@@ -11,16 +13,19 @@ type tagType = {
     id: number
 }
 
+type _params={
+    type:_tagType
+}
 
 export const TagDetail = () => {
-   
-   
-    const { addTags, findTags } = useTags('-')
+ 
+    const {type} = useParams<_params>()
+    const { addTags, findTags } = useTags(type)
     const { allTags, findAllTags } = useAllTags()
     const [selectTag, setSelectTag] = useState<tagType>(allTags[0]['iconList'][0])
     const [tagName, setTagName] = useState('')
 
-   
+
 
     const { visible, close, time } = useVsible({})
 
@@ -51,7 +56,7 @@ export const TagDetail = () => {
             <Wrapper>
                 <Header>
                     <Back onClick={close}> {'<'} 返回</Back>
-                    <div className="title">添加支出类别</div>
+                    <div className="title">添加{type === '+'?'收入':'支出'}类别</div>
                     <div onClick={onSumbit}>完成</div>
                 </Header>
                 <PutBox>
