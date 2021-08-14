@@ -25,23 +25,21 @@ export const useTags = (type: keyof tagType) => {
     const [data, setData] = useState(TagList)
     const tags = data[type]
     const addTags = (val: tagItem) => {
-        setData({ ...data, [type]: { ...tags, val } })
+        let x = { ...data, [type]: [ ...tags, val ] }
+        setData(x)
+        window.localStorage.setItem('tags', JSON.stringify(x))
     }
 
 
 
-    // useEffect(() => {
-    //     if (!tags.length) {
-    //         const _tags = window.localStorage.getItem(type)
-    //         _tags?.length && setData(JSON.parse(_tags))
-    //     }
-    // }, [data])
-
     useEffect(() => {
-        window.localStorage.setItem(type, JSON.stringify(tags))
-    }, [data])
+        const _tags = window.localStorage.getItem('tags')
+        setData(JSON.parse(_tags ||''))
+    }, [])
+
 
     const findTags = (key: keyof tagItem, value: number | string) => {
+        
         return tags.find(item => item[key] === value)
     }
 

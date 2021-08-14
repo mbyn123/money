@@ -19,7 +19,7 @@ export const Tags = ({selectType}:{selectType:_tagType}) => {
     return (
         <Wrapper>
             {
-                tags?.map((item:tagItem) => (
+               tags?.map((item:tagItem) => (
                     <TagWrapper key={item.id}>
                         <Tag icon={item.icon} name={item.name} select={item.id === selectId} onClick={() => setSelectId(item.id)} />
                     </TagWrapper>)
