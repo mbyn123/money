@@ -1,21 +1,21 @@
+import { useState } from "react"
 import { Tag } from "components/Tag"
 import { useTags } from "hooks/useTags"
-import { useState } from "react"
+import { useHistory } from "react-router-dom"
 import styled from "styled-components"
 
 
 
 export const Tags = () => {
-    // let history = useHistory()
+    let history = useHistory()
     const { tags } = useTags('-')
-    const [selectId, setSelectId] = useState<number>(0)
+    const [selectId, setSelectId] = useState<number>(1)
     const goToDetail = () => {
+        history.push('/tagDetail')
     }
 
-    // const addTag = () => {
-    //     const _tag = window.prompt('新标签的名称为')
-    //     console.log(_tag)
-    // }
+
+
     return (
         <Wrapper>
             {

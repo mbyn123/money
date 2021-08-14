@@ -1,108 +1,106 @@
 // 支出
-const expend = [
-    {
-        icon: 'yule',
-        name: '娱乐',
-        id: 1
-    },
-    {
-        icon: 'jiaotong',
-        name: '交通',
-        id: 2
-    },
-    {
-        icon: 'riyong',
-        name: '日用',
-        id: 3
-    },
-    {
-        icon: 'gouwu',
-        name: '购物',
-        id: 4
-    },
-    {
-        icon: 'canyin',
-        name: '餐饮',
-        id: 5
-    }
+const expend:[] = [
+    // {
+    //     icon: 'yule',
+    //     name: '娱乐',
+    //     id: 1
+    // },
+    // {
+    //     icon: 'jiaotong',
+    //     name: '交通',
+    //     id: 2
+    // },
+    // {
+    //     icon: 'riyong',
+    //     name: '日用',
+    //     id: 3
+    // },
+    // {
+    //     icon: 'gouwu',
+    //     name: '购物',
+    //     id: 4
+    // },
+    // {
+    //     icon: 'canyin',
+    //     name: '餐饮',
+    //     id: 5
+    // }
 ]
 
 // 收入
-const income = [
-    {
-        icon: 'canyin',
-        name: '工资',
-        id: 6
-    }
+const income:[] = [
+    // {
+    //     icon: 'canyin',
+    //     name: '工资',
+    //     id: 6
+    // }
 ]
 
-export const all = [
+const all = [
     {
         typeName: '娱乐',
+        typeId:1,
         iconList: [
             {
                 icon: 'yule',
-
-                id: 1
+                id: 11
             },
             {
                 icon: 'jiaotong',
-
-                id: 2
+                id: 12
             },
             {
                 icon: 'riyong',
-
-                id: 3
+                id: 13
             },
             {
                 icon: 'gouwu',
-
-                id: 4
+                id: 14
             },
             {
                 icon: 'canyin',
-                id: 5
+                id: 15
             }
         ]
     },
     {
         typeName: '饮食',
+        typeId:2,
         iconList: [
             {
                 icon: 'yule',
-                id: 1
+                id: 21
             },
             {
                 icon: 'jiaotong',
-                id: 2
+                id: 22
             },
             {
                 icon: 'riyong',
-                id: 3
+                id: 23
             },
             {
                 icon: 'gouwu',
-                id: 4
+                id: 24
             },
             {
                 icon: 'canyin',
-                id: 5
+                id: 25
             },
             {
                 icon: 'canyin',
-                id: 6
+                id: 26
             },
             {
                 icon: 'canyin',
-                id: 7
+                id: 27
             },
             {
                 icon: 'canyin',
-                id: 8
+                id: 28
             }
         ]
     }
 ]
 
-export const TagList = { '+': income, '-': expend }
+export const TagList = { '+': income, '-': expend,all }

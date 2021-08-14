@@ -1,42 +1,72 @@
 import { Tag } from "components/Tag";
 import { Transition } from "components/Transition"
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom"
+import { useAllTags, useTags } from "hooks/useTags";
+import { useVsible } from "hooks/useVsible";
+import { useState } from "react";
 import styled from "styled-components";
-import { all } from 'utils/config'
+
+type tagType = {
+    icon: string,
+    name?: string,
+    id: number
+}
+
 
 export const TagDetail = () => {
-    let { goBack } = useHistory()
+   
+   
+    const { addTags, findTags } = useTags('-')
+    const { allTags, findAllTags } = useAllTags()
+    const [selectTag, setSelectTag] = useState<tagType>(allTags[0]['iconList'][0])
+    const [tagName, setTagName] = useState('')
+
+   
+
+    const { visible, close, time } = useVsible({})
 
 
-
-    const time = 300
-
-    const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        setShow(true)
-    }, [])
-
-    const close = () => {
-        setShow(false)
-        setTimeout(() => { goBack() }, time)
+    const onChangeSelect = (typeId: number, iconId: number) => {
+        setSelectTag(findAllTags(typeId, iconId))
     }
+
+    const onSumbit = () => {
+        console.log(selectTag);
+        if (!tagName) {
+            return window.alert('类别名称不能为空！')
+        }
+        if (findTags('id', selectTag.id)) {
+            return window.alert('类别不能重复添加！')
+        }
+        if (findTags('name', tagName)) {
+            return window.alert('类别名称不能重复！')
+        }
+
+        addTags({ ...selectTag, name: tagName })
+        close()
+
+    }
+
     return (
-        <Transition isShow={show} timeout={time} classNames="slide">
+        <Transition isShow={visible} timeout={time} classNames="slide">
             <Wrapper>
                 <Header>
                     <Back onClick={close}> {'<'} 返回</Back>
                     <div className="title">添加支出类别</div>
-                    <div>完成</div>
+                    <div onClick={onSumbit}>完成</div>
                 </Header>
                 <PutBox>
-                    <Tag icon="gouwu"></Tag>
-                    <input type="text" className="put" placeholder="请输入类别名称(不超过4个汉字)" />
+                    <Tag icon={selectTag['icon']} select></Tag>
+                    <input
+                        type="text"
+                        className="put"
+                        value={tagName}
+                        maxLength={4}
+                        onChange={e => setTagName(e.target.value)}
+                        placeholder="请输入类别名称(不超过4个汉字)" />
                 </PutBox>
                 <Main>
                     {
-                        all.map(item => {
+                        allTags.map(item => {
                             return (
                                 <div className="icon-list-wrapper" key={item.typeName} >
                                     <div className="header-title">{item.typeName}</div>
@@ -44,7 +74,7 @@ export const TagDetail = () => {
                                         {
                                             item.iconList.map(icon => (
                                                 <div className="icon-item" key={icon.id}>
-                                                    <Tag  icon={icon.icon}></Tag>
+                                                    <Tag icon={icon.icon} select={icon.id === selectTag.id} onClick={() => onChangeSelect(item.typeId, icon.id)}></Tag>
                                                 </div>)
                                             )
                                         }

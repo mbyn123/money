@@ -1,32 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Transition } from 'components/Transition';
 import { NavigationBar } from "./NavigationBar"
 import styled from 'styled-components';
 import { Tags } from './Tags';
 import { Note } from './Note';
 import { NumberPad } from './NumberPad';
-import { TagDetail } from './TagDetail';
+import { useVsible } from 'hooks/useVsible';
 
 
 
 export const Money = () => {
-    const [show, setShow] = useState(false);
-    let history = useHistory()
-
-    const time = 300
-    useEffect(() => {
-        setShow(true)
-    }, [])
-
-    const close = () => {
-        setShow(false)
-        setTimeout(() => { history.push('/detail') }, time)
-    }
+  
+    const { visible, close, time } = useVsible({url:'/detail'})
 
     return (
         <Transition
-            isShow={show}
+            isShow={visible}
             timeout={time}
             classNames='alert'
         >
@@ -37,7 +25,7 @@ export const Money = () => {
                     <Note></Note>
                     <NumberPad></NumberPad>
                 </Wrapper>
-                <TagDetail></TagDetail>
+
             </>
         </Transition>
 
