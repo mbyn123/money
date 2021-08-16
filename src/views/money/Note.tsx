@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import remarkImg from 'assets/remark.png'
 
-export const Note = ({ value }: { value: string }) => {
+type Props = {
+    value: string,
+    amount: number,
+    onChange: (value: string) => void
+}
+export const Note: React.FC<Props> = ({ value, amount, onChange }) => {
 
-    const [note, setNote] = useState('')
-
-    useEffect(() => {
-        console.log(note)
-    }, [note])
     return (
         <Wrapper>
             <Remark>
@@ -16,9 +16,9 @@ export const Note = ({ value }: { value: string }) => {
                     <img src={remarkImg} alt="" className="remark-image" />
                     <div className="title">备注：</div>
                 </div>
-                <input className="put-box" type="text" value={note} onChange={e => setNote(e.target.value)} placeholder="写备注..." />
+                <input className="put-box" type="text" value={value} onChange={e => onChange(e.target.value)} placeholder="写备注..." />
             </Remark>
-            <Numerical>{value}</Numerical>
+            <Numerical>{amount}</Numerical>
         </Wrapper>
     )
 }

@@ -3,11 +3,16 @@ import dateImg from "assets/date.png"
 import React from "react"
 import { generateOutPut } from "./NumberPad/generateOutPut"
 
-export const NumberPad = ({ value, changeValue }: { value: string, changeValue: (text: string) => void }) => {
+type Props ={ 
+    value: number,
+    onChange: (value: number) => void 
+}
+
+export const NumberPad:React.FC<Props> = ({ value, onChange }) => {
 
     const changeNumber = (text: string) => {
         if (text.length === 9) { return '' }
-        changeValue(text)
+        onChange(parseFloat(text))
     }
 
     const onclickWrapper = (e: React.MouseEvent) => {
@@ -23,7 +28,7 @@ export const NumberPad = ({ value, changeValue }: { value: string, changeValue: 
             return
         }
         if ('0123456789.'.split('').concat(['删除'])) {
-            changeNumber(generateOutPut(text, value))
+            changeNumber(generateOutPut(text, value.toString()))
         }
     }
     return (

@@ -1,20 +1,16 @@
+import React from "react"
 import styled from "styled-components"
 import { tagTypeList } from "utils/config"
 import { _tagType } from "./Money"
 
-type props = {
-    selectType: string,
-    changeSelect: (type: _tagType) => void,
+type Props = {
+    value: string,
+    onChange: (value: _tagType) => void,
     close: () => void
 }
 
+export const NavigationBar: React.FC<Props> = ({ value, onChange, close }) => {
 
-
-export const NavigationBar = ({ selectType, changeSelect, close }: props) => {
-
-    const handleClick = () => {
-        close()
-    }
     return (
         <Wrapper>
             <Main>
@@ -22,13 +18,13 @@ export const NavigationBar = ({ selectType, changeSelect, close }: props) => {
                     <ul>
                         {
                             tagTypeList.map(item => (
-                                <li onClick={() => changeSelect(item.type)} key={item.type} className={selectType === item.type ? "checked" : ''}>{item.name}</li>
+                                <li onClick={() => onChange(item.type)} key={item.type} className={value === item.type ? "checked" : ''}>{item.name}</li>
                             ))
                         }
 
                     </ul>
                 </Nav>
-                <Button onClick={handleClick}>取消</Button>
+                <Button onClick={()=>close()}>取消</Button>
 
             </Main>
 

@@ -15,11 +15,17 @@ export type _tagType = keyof tagType
 export const Money: React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/detail' })
 
-    const [selectType, setSelectType] = useState<_tagType>(tagTypeList[0].type)
-    const [outPut, setOutPut] = useState('0')
 
-    const changeSelect = (type: _tagType) => setSelectType(type)
-    const changeValue = (text: string) => setOutPut(text)
+    const [selected, setSelected] = useState({
+        selectType: tagTypeList[0].type as _tagType,
+        selectTag: 0 as number,
+        note: '',
+        amount: 0
+    })
+
+    const onChange = (val: Partial<typeof selected>) => {
+        setSelected({ ...selected, ...val })
+    }
 
     return (
         <Transition
@@ -27,14 +33,23 @@ export const Money: React.FC = () => {
             timeout={time}
             classNames='alert'
         >
-            <>
-                <Wrapper>
-                    <NavigationBar close={close} selectType={selectType} changeSelect={changeSelect}></NavigationBar>
-                    <Tags selectType={selectType}></Tags>
-                    <Note value={outPut}></Note>
-                    <NumberPad value={outPut} changeValue={changeValue}></NumberPad>
-                </Wrapper>
-            </>
+            <Wrapper>
+                <NavigationBar
+                    value={selected.selectType}
+                    close={close}
+                    onChange={selectType => onChange({ selectType })} />
+                <Tags
+                    value={selected.selectTag}
+                    selectType={selected.selectType}
+                    onChange={selectTag => onChange({ selectTag })} />
+                <Note
+                    value={selected.note}
+                    amount={selected.amount}
+                    onChange={note => onChange({ note })} />
+                <NumberPad
+                    value={selected.amount}
+                    onChange={amount => onChange({ amount })} />
+            </Wrapper>
         </Transition>
     )
 }

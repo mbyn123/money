@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Tag } from "components/Tag"
 import { tagItem, useTags } from "hooks/useTags"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
 import { _tagType } from "./Money"
 
+type Props = { 
+    selectType: _tagType,
+    value:number,
+    onChange:(value:number)=>void
+ }
 
-
-export const Tags = ({selectType}:{selectType:_tagType}) => {
+export const Tags: React.FC<Props> = ({ selectType, value,onChange }) => {
     const { push } = useHistory()
     const { tags } = useTags(selectType)
-    const [selectId, setSelectId] = useState<number>(0)
-
-    useEffect(() => {
-       console.log(tags,'111111');
-    }, [tags]);
-
     return (
         <Wrapper>
             {
-               tags?.map((item:tagItem) => (
+                tags?.map((item: tagItem) => (
                     <TagWrapper key={item.id}>
-                        <Tag icon={item.icon} name={item.name} select={item.id === selectId} onClick={() => setSelectId(item.id)} />
+                        <Tag icon={item.icon} name={item.name} select={item.id === value} onClick={() => onChange(item.id)} />
                     </TagWrapper>)
                 )
             }
             <TagWrapper>
                 <Tag icon='add' name='添加' onClick={() => push(`/tagDetail/${selectType}`)} />
             </TagWrapper>
-
         </Wrapper>
     )
 }

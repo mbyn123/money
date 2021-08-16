@@ -1,3 +1,4 @@
+
 export const generateOutPut = (text: string, value: string) => {
     switch (text) {
         case '0':
