@@ -12,7 +12,7 @@ import { TagItem } from "./TagItem"
 export const TagList = () => {
     const { type } = useParams<_params>()
     const { push } = useHistory()
-    const { visible, close, time } = useVsible({ time: 500 })
+    const { visible, close, time } = useVsible({ time: 500, url: '/money' })
     const [tabActive, setTabActive] = useState(type)
 
     const { tags, deleteTags } = useTags(tabActive)

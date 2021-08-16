@@ -28,7 +28,7 @@ export const TagDetail = () => {
 
 
 
-    const { visible, close, time } = useVsible({time:500})
+    const { visible, close, time } = useVsible({time:500,url:`/tagList/${type}`})
 
 
     const onChangeSelect = (typeId: number, iconId: number) => {
