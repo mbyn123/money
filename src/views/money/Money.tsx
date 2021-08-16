@@ -14,13 +14,12 @@ export type _tagType = keyof tagType
 
 export const Money: React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/detail' })
+
     const [selectType, setSelectType] = useState<_tagType>(tagTypeList[0].type)
-    const [outPut,setOutPut] = useState('')
+    const [outPut, setOutPut] = useState('0')
 
     const changeSelect = (type: _tagType) => setSelectType(type)
-    const changeValue = (text:string)=>{
-        setOutPut(text)
-    }
+    const changeValue = (text: string) => setOutPut(text)
 
     return (
         <Transition

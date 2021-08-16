@@ -1,49 +1,29 @@
 import styled from "styled-components"
 import dateImg from "assets/date.png"
 import React from "react"
+import { generateOutPut } from "./NumberPad/generateOutPut"
 
 export const NumberPad = ({ value, changeValue }: { value: string, changeValue: (text: string) => void }) => {
+
+    const changeNumber = (text: string) => {
+        if (text.length === 9) { return '' }
+        changeValue(text)
+    }
+
     const onclickWrapper = (e: React.MouseEvent) => {
         let text = (e.target as HTMLDivElement).textContent
         if (!text) { return }
-        switch (text) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                console.log(text)
-                if (text === '0') {
-                    changeValue(text)
-                } else {
-                    changeValue(value + text)
-                }
-                break;
-            case '.':
-                console.log('.')
-                break;
-            case '+':
-                console.log('+')
-                break;
-            case '-':
-                console.log('-')
-                break;
-            case '删除':
-                console.log('删除')
-                break;
-            case '今天':
-                console.log('今天')
-                break;
-            case '完成':
-                console.log('完成')
-                break;
-            default:
-                break;
+        if (['+', '-'].includes(text)) {
+            return
+        }
+        if (text === '今天') {
+            return
+        }
+        if (text === '完成') {
+            return
+        }
+        if ('0123456789.'.split('').concat(['删除'])) {
+            changeNumber(generateOutPut(text, value))
         }
     }
     return (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import remarkImg from 'assets/remark.png'
 
-export const Note= ({ value }: { value: string }) => {
+export const Note = ({ value }: { value: string }) => {
 
     const [note, setNote] = useState('')
 
@@ -16,7 +16,7 @@ export const Note= ({ value }: { value: string }) => {
                     <img src={remarkImg} alt="" className="remark-image" />
                     <div className="title">备注：</div>
                 </div>
-                <input type="text"  value={note} onChange={e => setNote(e.target.value)} placeholder="写备注..." className="put-box" />
+                <input className="put-box" type="text" value={note} onChange={e => setNote(e.target.value)} placeholder="写备注..." />
             </Remark>
             <Numerical>{value}</Numerical>
         </Wrapper>
@@ -34,6 +34,7 @@ background: #F2F3F4;
 display: flex;
 align-items: center;
 padding:0 1rem;
+
 `
 
 const Remark = styled.div`
@@ -42,7 +43,10 @@ display: flex;
 align-items: center;
 height: 100%;
 padding-right: 1rem;
+/* border: 1px solid green; */
+
 .label{
+    flex:1;
     font-size: 1.5rem;
     color: #555454;
     font-weight: 600;
@@ -66,7 +70,7 @@ padding-right: 1rem;
 }
 `
 const Numerical = styled.div`
-flex: 0 0 12rem;
+/* flex: 0 0 12rem; */
 overflow: hidden;
 font-size: 2.6rem;
 text-align: right;

@@ -5,7 +5,7 @@ import { useVsible } from "hooks/useVsible";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { _tagType } from "./Money";
+import { _tagType } from "../Money/Money";
 
 type tagType = {
     icon: string,

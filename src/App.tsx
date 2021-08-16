@@ -1,7 +1,7 @@
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Detail } from 'views/Detail/Detail';
 import { Money } from 'views/Money/Money';
-import { TagDetail } from 'views/Money/TagDetail';
+import { TagDetail } from 'views/TagDetail/TagDetail';
 import { NoMatch } from 'views/NoMatchs/NoMatchs';
 import { Statistics } from 'views/Statistics/Statistics';
 
