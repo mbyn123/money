@@ -10,7 +10,7 @@ import { _tagType } from "./Money"
 export const Tags = ({selectType}:{selectType:_tagType}) => {
     const { push } = useHistory()
     const { tags } = useTags(selectType)
-    const [selectId, setSelectId] = useState<number>(14)
+    const [selectId, setSelectId] = useState<number>(0)
 
     useEffect(() => {
        console.log(tags,'111111');

@@ -12,8 +12,7 @@ import { tagTypeList } from 'utils/config';
 
 export type _tagType = keyof tagType
 
-export const Money = () => {
-
+export const Money:React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/detail' })
     const [selectType, setSelectType] = useState<_tagType>(tagTypeList[0].type)
 
@@ -34,10 +33,8 @@ export const Money = () => {
                     <Note></Note>
                     <NumberPad></NumberPad>
                 </Wrapper>
-
             </>
         </Transition>
-
     )
 }
 

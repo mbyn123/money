@@ -34,7 +34,9 @@ export const useTags = (type: keyof tagType) => {
 
     useEffect(() => {
         const _tags = window.localStorage.getItem('tags')
-        setData(JSON.parse(_tags ||''))
+        if(_tags){
+            setData(JSON.parse(_tags))
+        }
     }, [])
 
 

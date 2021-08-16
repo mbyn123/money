@@ -1,8 +1,14 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import remarkImg from 'assets/remark.png'
 
-export const Note:React.FC = () => {
+export const Note: React.FC = () => {
+
+    const [note, setNote] = useState('')
+
+    useEffect(() => {
+        console.log(note)
+    }, [note])
     return (
         <Wrapper>
             <Remark>
@@ -11,7 +17,7 @@ export const Note:React.FC = () => {
                     <div className="title">备注：</div>
                 </div>
 
-                <input type="text" placeholder="写备注..." className="put-box" />
+                <input type="text" value={note} onChange={(e) => setNote(e.target.value)} placeholder="写备注..." className="put-box" />
             </Remark>
             <Numerical>
                 12345678
