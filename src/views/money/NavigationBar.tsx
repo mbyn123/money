@@ -4,13 +4,13 @@ import { _tagType } from "./Money"
 
 type props = {
     selectType: string,
-    onSelect: (type: _tagType) => void,
+    changeSelect: (type: _tagType) => void,
     close: () => void
 }
 
 
 
-export const NavigationBar = ({ selectType, onSelect, close }: props) => {
+export const NavigationBar = ({ selectType, changeSelect, close }: props) => {
 
     const handleClick = () => {
         close()
@@ -22,7 +22,7 @@ export const NavigationBar = ({ selectType, onSelect, close }: props) => {
                     <ul>
                         {
                             tagTypeList.map(item => (
-                                <li onClick={() => onSelect(item.type)} key={item.type} className={selectType === item.type ? "checked" : ''}>{item.name}</li>
+                                <li onClick={() => changeSelect(item.type)} key={item.type} className={selectType === item.type ? "checked" : ''}>{item.name}</li>
                             ))
                         }
 

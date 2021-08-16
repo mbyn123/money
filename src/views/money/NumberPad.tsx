@@ -1,14 +1,57 @@
-import { Icon } from "components/Icon"
 import styled from "styled-components"
 import dateImg from "assets/date.png"
+import React from "react"
 
-export const NumberPad = () => {
+export const NumberPad = ({ value, changeValue }: { value: string, changeValue: (text: string) => void }) => {
+    const onclickWrapper = (e: React.MouseEvent) => {
+        let text = (e.target as HTMLDivElement).textContent
+        if (!text) { return }
+        switch (text) {
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                console.log(text)
+                if (text === '0') {
+                    changeValue(text)
+                } else {
+                    changeValue(value + text)
+                }
+                break;
+            case '.':
+                console.log('.')
+                break;
+            case '+':
+                console.log('+')
+                break;
+            case '-':
+                console.log('-')
+                break;
+            case '删除':
+                console.log('删除')
+                break;
+            case '今天':
+                console.log('今天')
+                break;
+            case '完成':
+                console.log('完成')
+                break;
+            default:
+                break;
+        }
+    }
     return (
-        <Wrapper>
+        <Wrapper onClick={(e) => onclickWrapper(e)}>
             <div>1</div>
             <div>2</div>
             <div>3</div>
-            <div className="date-button"><img src={dateImg} alt="" className="date-image"/>今天</div>
+            <div className="date-button"><img src={dateImg} alt="" className="date-image" />今天</div>
             <div>4</div>
             <div>5</div>
             <div>6</div>
@@ -19,7 +62,7 @@ export const NumberPad = () => {
             <div>-</div>
             <div>.</div>
             <div>0</div>
-            <div className="delete-button"><Icon name="delete"></Icon></div>
+            <div className="delete-button">删除</div>
             <div className="submit-button">完成</div>
         </Wrapper>
     )

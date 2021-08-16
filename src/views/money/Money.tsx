@@ -12,12 +12,14 @@ import { tagTypeList } from 'utils/config';
 
 export type _tagType = keyof tagType
 
-export const Money:React.FC = () => {
+export const Money: React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/detail' })
     const [selectType, setSelectType] = useState<_tagType>(tagTypeList[0].type)
+    const [outPut,setOutPut] = useState('')
 
-    const onSelect = (type: _tagType) => {
-        setSelectType(type)
+    const changeSelect = (type: _tagType) => setSelectType(type)
+    const changeValue = (text:string)=>{
+        setOutPut(text)
     }
 
     return (
@@ -28,10 +30,10 @@ export const Money:React.FC = () => {
         >
             <>
                 <Wrapper>
-                    <NavigationBar close={close} selectType={selectType} onSelect={onSelect}></NavigationBar>
+                    <NavigationBar close={close} selectType={selectType} changeSelect={changeSelect}></NavigationBar>
                     <Tags selectType={selectType}></Tags>
-                    <Note></Note>
-                    <NumberPad></NumberPad>
+                    <Note value={outPut}></Note>
+                    <NumberPad value={outPut} changeValue={changeValue}></NumberPad>
                 </Wrapper>
             </>
         </Transition>
