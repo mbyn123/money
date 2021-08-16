@@ -26,7 +26,8 @@ export const Tag = (props: Props) => {
 const Wrapper = styled.div<{
     select?: boolean
 }>`
-text-align: center;
+display: flex;
+flex-direction: column;
 .icon-wrapper{
     display: flex;
     align-items: center;
@@ -37,6 +38,7 @@ text-align: center;
     padding:.8rem;
    .icon{
     fill:#555454;
+    font-size: 1rem;
    }
 }
  .name{

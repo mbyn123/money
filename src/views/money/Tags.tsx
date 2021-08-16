@@ -22,7 +22,8 @@ export const Tags: React.FC<Props> = ({ selectType, value, onChange }) => {
                 )
             }
             <TagWrapper>
-                <Tag icon='add' name='添加' onClick={() => push(`/tagDetail/${selectType}`)} />
+                <Tag icon='setting' name='设置' onClick={() => push(`/tagList/${selectType}`)}/>
+                {/* <Tag icon='add' name='添加' onClick={() => push(`/tagDetail/${selectType}`)} /> */}
             </TagWrapper>
         </Wrapper>
     )

@@ -1,3 +1,4 @@
+import { Icon } from "components/Icon";
 import { Tag } from "components/Tag";
 import { Transition } from "components/Transition"
 import { useAllTags, useTags, _tagType } from "hooks/useTags";
@@ -5,6 +6,7 @@ import { useVsible } from "hooks/useVsible";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { tagTypeList } from "utils/config";
 
 type tagType = {
     icon: string,
@@ -12,13 +14,13 @@ type tagType = {
     id: number
 }
 
-type _params={
-    type:_tagType
+export type _params = {
+    type: _tagType
 }
 
 export const TagDetail = () => {
- 
-    const {type} = useParams<_params>()
+
+    const { type } = useParams<_params>()
     const { addTags, findTags } = useTags(type)
     const { allTags, findAllTags } = useAllTags()
     const [selectTag, setSelectTag] = useState<tagType>(allTags[0]['iconList'][0])
@@ -26,7 +28,7 @@ export const TagDetail = () => {
 
 
 
-    const { visible, close, time } = useVsible({})
+    const { visible, close, time } = useVsible({time:500})
 
 
     const onChangeSelect = (typeId: number, iconId: number) => {
@@ -54,8 +56,8 @@ export const TagDetail = () => {
         <Transition isShow={visible} timeout={time} classNames="slide">
             <Wrapper>
                 <Header>
-                    <Back onClick={close}> {'<'} 返回</Back>
-                    <div className="title">添加{type === '+'?'收入':'支出'}类别</div>
+                    <Back onClick={close}> <Icon name="left" /> 返回</Back>
+                    <div className="title">添加{tagTypeList.filter(item=>item.type === type)[0]?.name}类别</div>
                     <div onClick={onSumbit}>完成</div>
                 </Header>
                 <PutBox>
@@ -118,6 +120,11 @@ font-size: 1.4rem;
 `
 
 const Back = styled.div`
+display: flex;
+align-items: center;
+.icon{
+    font-size: 1.1rem;
+}
 `
 
 const PutBox = styled.div`

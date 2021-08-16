@@ -25,11 +25,7 @@ export type _tagType = keyof tagType
 export const useTags = (type: _tagType) => {
     const [data, setData] = useState(TagList)
     const tags = data[type]
-    const addTags = (val: tagItem) => {
-        let _data = { ...data, [type]: [...tags, val] }
-        setData(_data)
-        window.localStorage.setItem('tags', JSON.stringify(_data))
-    }
+
 
     useEffect(() => {
         const _tags = window.localStorage.getItem('tags')
@@ -38,16 +34,29 @@ export const useTags = (type: _tagType) => {
         }
     }, [])
 
+    const addTags = (val: tagItem) => {
+        let _data = { ...data, [type]: [...tags, val] }
+        setData(_data)
+        window.localStorage.setItem('tags', JSON.stringify(_data))
+    }
+
+    const deleteTags = (id: number) => {
+        let _data = { ...data, [type]: [...tags.filter((item:tagItem) => item.id !== id)] }
+        setData(_data)
+        window.localStorage.setItem('tags', JSON.stringify(_data))
+    }
 
     const findTags = (key: keyof tagItem, value: number | string) => {
-
         return tags.find(item => item[key] === value)
     }
+
+
 
     return {
         tags,
         addTags,
-        findTags
+        findTags,
+        deleteTags
     }
 
 }
