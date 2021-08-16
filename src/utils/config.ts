@@ -1,4 +1,4 @@
-import { _tagType } from "views/Money/Money"
+import { _tagType } from "hooks/useTags"
 
 // 支出
 const expend:[] = []

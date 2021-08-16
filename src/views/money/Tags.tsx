@@ -1,17 +1,15 @@
-import { useState } from "react"
 import { Tag } from "components/Tag"
-import { tagItem, useTags } from "hooks/useTags"
+import { tagItem, useTags, _tagType } from "hooks/useTags"
 import { useHistory } from "react-router-dom"
 import styled from "styled-components"
-import { _tagType } from "./Money"
 
-type Props = { 
+type Props = {
     selectType: _tagType,
-    value:number,
-    onChange:(value:number)=>void
- }
+    value: number,
+    onChange: (value: number) => void
+}
 
-export const Tags: React.FC<Props> = ({ selectType, value,onChange }) => {
+export const Tags: React.FC<Props> = ({ selectType, value, onChange }) => {
     const { push } = useHistory()
     const { tags } = useTags(selectType)
     return (

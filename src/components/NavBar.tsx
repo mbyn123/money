@@ -7,7 +7,7 @@ export const NavBar = () => {
         <Nav>
             <ul>
                 <li>
-                    <NavLink to="/detail" activeClassName="selected">
+                    <NavLink to="/bill" activeClassName="selected">
                         <Icon name="detail"></Icon>
                         <div>明细</div>
                     </NavLink >

@@ -6,14 +6,13 @@ import { Note } from './Note';
 import { NumberPad } from './NumberPad';
 import { useVsible } from 'hooks/useVsible';
 import { useState } from 'react';
-import { tagType } from 'hooks/useTags';
 import { tagTypeList } from 'utils/config';
+import { _tagType } from 'hooks/useTags';
 
 
-export type _tagType = keyof tagType
 
 export const Money: React.FC = () => {
-    const { visible, close, time } = useVsible({ url: '/detail' })
+    const { visible, close, time } = useVsible({ url: '/bill' })
 
 
     const [selected, setSelected] = useState({

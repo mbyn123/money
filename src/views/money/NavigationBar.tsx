@@ -1,7 +1,7 @@
+import { _tagType } from "hooks/useTags"
 import React from "react"
 import styled from "styled-components"
 import { tagTypeList } from "utils/config"
-import { _tagType } from "./Money"
 
 type Props = {
     value: string,
