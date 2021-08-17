@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import dateImg from "assets/date.png"
-import React from "react"
+import React, { useState } from "react"
 import { generateOutPut } from "./NumberPad/generateOutPut"
 
 type Props = {
@@ -10,7 +10,6 @@ type Props = {
 }
 
 export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) => {
-
     const changeNumber = (output: string) => {
 
         let value;
@@ -24,12 +23,65 @@ export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) =>
         onChange(value)
     }
 
+    const addition = (text: string) => {
+        // let number = parseFloat(output)
+        // let n = output.split('').filter(i => i === '+').length
+        // if (number && number >= 0) {
+        //     let mumberArr = output.split('+')
+        //     let a = parseFloat(mumberArr[0])
+        //     let b = parseFloat(mumberArr[1])
+        //     console.log(mumberArr)
+        //     if (n) {
+
+
+        //         a && b && changeNumber((a + b).toString())
+        //     } else {
+        //         changeNumber(output + text)
+        //     }
+
+        // } else {
+
+        // }
+        changeNumber(output + text)
+
+    }
+
+    const subtraction = (text: string) => {
+        changeNumber(output + text)
+    }
+
     const onclickWrapper = (e: React.MouseEvent) => {
         let text = (e.target as HTMLDivElement).textContent
         if (!text) { return }
-        if (['+', '-'].includes(text)) {
-            return
-        }
+
+        // if (['+', '-'].includes(text)) {
+        //     changeNumber(output + text)
+        //     text === '+' ? addition(text) : subtraction(text)
+        //     let _output = output.substring(0,1) !== '-'? output : output.substring(1)
+        //     let sign = _output.indexOf('+') >= 0 ? '+' : '-'
+
+        //     let index = _output.indexOf(sign)
+        //     let operator = _output.substring(index, index + 1)
+        //     let n = _output.split('').filter(i => i === sign).length
+        //     let mumberArr = _output.split(sign)
+
+        //     console.log(mumberArr,sign)
+        //     if (n) {
+
+
+        //         let a = parseFloat(mumberArr[0])
+        //         let b = parseFloat(mumberArr[1])
+        //         console.log(a, b)
+        //         let result = operator === '+' ? addition(a, b) : subtraction(a, b)
+        //         changeNumber(result.toString() + text)
+        //     } else {
+        //         changeNumber(output + text)
+        //     }
+
+
+
+        //     return
+        // }
         if (text === '今天') {
             return
         }
@@ -38,7 +90,7 @@ export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) =>
             return
         }
 
-        if ('.0123456789'.split('').concat(['删除']).includes(text)) {
+        if ('.0123456789+-'.split('').concat(['删除']).includes(text)) {
             changeNumber(generateOutPut(text, output))
         }
     }

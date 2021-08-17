@@ -1,4 +1,8 @@
 
+const strLimit = (value: string, sign: string) => {
+    return value.split('').filter(i => i === sign).length
+}
+
 export const generateOutPut = (text: string, value = '0') => {
     switch (text) {
         case '0':
@@ -16,10 +20,31 @@ export const generateOutPut = (text: string, value = '0') => {
             } else {
                 return value + text
             }
-
         case '.':
-            if (value.indexOf('.') >= 0) { return value }
-            return value + '.'
+            console.log(strLimit(value, '+'))
+
+            if ((strLimit(value, '+')) || (strLimit(value, '-'))){
+                if (strLimit(value, '.') > 1) {
+                    return value
+                }else{
+                    return value + '.'
+                }
+            }else{
+                if (strLimit(value, '.') === 1) {
+                    return value
+                }else{
+                    return value + '.'
+                }
+            }
+        case '+':
+            console.log(strLimit(value, '+'))
+            if (strLimit(value, '+')) {
+                console.log(value)
+                return value
+            }
+            return value + '+'
+        case '-':
+            return value + '-'
         case '删除':
             if (value.length === 1) {
                 return '0'
