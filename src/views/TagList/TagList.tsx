@@ -5,14 +5,15 @@ import { useVsible } from "hooks/useVsible"
 import { useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import styled from "styled-components"
-import { tagTypeList } from "utils/config"
+import { payment_type, tagTypeList } from "utils/config"
 import { _params } from "views/TagDetail/TagDetail"
 import { TagItem } from "./TagItem"
 
 export const TagList = () => {
     const { type } = useParams<_params>()
     const { push } = useHistory()
-    const { visible, close, time } = useVsible({ time: 500, url: '/money' })
+
+    const { visible, close, time } = useVsible({ time: 500, url: `/money?type=${payment_type[type]}` })
     const [tabActive, setTabActive] = useState(type)
 
     const { tags, deleteTags } = useTags(tabActive)
@@ -24,6 +25,8 @@ export const TagList = () => {
             deleteTags(id)
         }
     }
+
+
 
     return (
         <Transition isShow={visible} timeout={time} classNames="slide">
@@ -50,7 +53,7 @@ export const TagList = () => {
                     <IconList>
                         <Space></Space>
                         {
-                            tags?.map((item: tagItem) => <TagItem clickDelete={clickDelete} item={item} />)
+                            tags?.map((item: tagItem) => <TagItem key={item.id} clickDelete={clickDelete} item={item} />)
                         }
 
                     </IconList>

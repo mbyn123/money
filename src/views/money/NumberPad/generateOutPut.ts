@@ -1,5 +1,5 @@
 
-export const generateOutPut = (text: string, value: string) => {
+export const generateOutPut = (text: string, value = '0') => {
     switch (text) {
         case '0':
         case '1':

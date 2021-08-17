@@ -4,7 +4,7 @@ import remarkImg from 'assets/remark.png'
 
 type Props = {
     value: string,
-    amount: number,
+    amount: string,
     onChange: (value: string) => void
 }
 export const Note: React.FC<Props> = ({ value, amount, onChange }) => {

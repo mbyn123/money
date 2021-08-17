@@ -1,7 +1,7 @@
 import { _tagType } from "hooks/useTags"
 
 // 支出
-const expend:[] = []
+const expend: [] = []
 
 
 // 收入
@@ -91,3 +91,10 @@ export const tagTypeList: _tagTypeList[] = [
         name: '收入'
     }
 ]
+
+export const payment_type = {
+    '+': 'income',
+    '-': 'expend',
+   
+}
+

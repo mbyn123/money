@@ -8,22 +8,29 @@ import { useVsible } from 'hooks/useVsible';
 import { useState } from 'react';
 import { tagTypeList } from 'utils/config';
 import { _tagType } from 'hooks/useTags';
+import { useLocation } from 'react-router-dom';
+import qs from 'qs'
 
 
 
 export const Money: React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/bill' })
-
-
+    const location = useLocation()
+    let query = qs.parse(location.search)['?type']
+    
     const [selected, setSelected] = useState({
-        selectType: tagTypeList[0].type as _tagType,
+        selectType: query ? (query === 'income' ? '+' : '-') : tagTypeList[0].type as _tagType,
         selectTag: 0 as number,
         note: '',
-        amount: 0
+        amount: '0'
     })
 
     const onChange = (val: Partial<typeof selected>) => {
         setSelected({ ...selected, ...val })
+    }
+
+    const onOk = () => {
+        console.log(selected)
     }
 
     return (
@@ -47,6 +54,7 @@ export const Money: React.FC = () => {
                     onChange={note => onChange({ note })} />
                 <NumberPad
                     value={selected.amount}
+                    onOk={onOk}
                     onChange={amount => onChange({ amount })} />
             </Wrapper>
         </Transition>
