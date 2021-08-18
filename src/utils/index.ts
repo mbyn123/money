@@ -21,6 +21,5 @@ export const calculate = (value: string, sign: signType) => {
         b = parseFloat(mumberArr[1])
     }
     let result = sign === '+' ? (a + b) : (a - b)
-    console.log(result)
     return String(result).indexOf('.') >= 0 ? result.toFixed(2) : result
 }
