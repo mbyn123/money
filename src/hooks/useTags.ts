@@ -50,8 +50,6 @@ export const useTags = (type: _tagType) => {
         return tags.find(item => item[key] === value)
     }
 
-
-
     return {
         tags,
         addTags,
@@ -64,6 +62,7 @@ export const useTags = (type: _tagType) => {
 
 export const useAllTags = () => {
     const [allTags,] = useState<allTagItem[]>(TagList['all'])
+    
     const findAllTags = (typeId: number, iconId: number) => {
         return allTags.filter(item => item.typeId === typeId)[0]?.iconList.filter(item => item.id === iconId)[0]
     }

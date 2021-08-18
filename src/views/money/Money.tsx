@@ -10,6 +10,7 @@ import { tagTypeList } from 'utils/config';
 import { _tagType } from 'hooks/useTags';
 import { useLocation } from 'react-router-dom';
 import qs from 'qs'
+import { calculate, changeStrLast, signType, strFirst, strLast, strLimit } from 'utils';
 
 
 
@@ -17,7 +18,7 @@ export const Money: React.FC = () => {
     const { visible, close, time } = useVsible({ url: '/bill' })
     const location = useLocation()
     let query = qs.parse(location.search)['?type']
-    
+
     const [selected, setSelected] = useState({
         selectType: query ? (query === 'income' ? '+' : '-') : tagTypeList[0].type as _tagType,
         selectTag: 0 as number,
@@ -25,12 +26,47 @@ export const Money: React.FC = () => {
         amount: '0'
     })
 
-    const onChange = (val: Partial<typeof selected>) => {
-        setSelected({ ...selected, ...val })
+
+    const onChange = (val: Partial<typeof selected>) => setSelected({ ...selected, ...val })
+
+    const changeAmount = (amount: string) => setSelected({ ...selected, amount })
+
+    const findAmountLast = (amount: string) => ['+', '-'].includes(strLast(amount))
+
+    const compute = (amount: string, sign: signType) => changeAmount(calculate(amount, sign).toString())
+
+    const process = (amount: string) => {
+        // 负数
+        if (strFirst(amount) === '-') {
+            if (strLimit(amount, '-') > 1) {
+                compute(amount, '-')
+            }
+            if ((strLimit(amount, '+'))) {
+                compute(amount, '+')
+            }
+        } else {
+            if (strLimit(amount, '-')) {
+                compute(amount, '-')
+            }
+            if (strLimit(amount, '+')) {
+                compute(amount, '+')
+            }
+        }
     }
 
     const onOk = () => {
-        console.log(selected)
+        let { selectType, selectTag, amount } = selected
+        if (!selectTag) {
+            return window.alert(`请选择${selectType === '-' ? '支出' : '收入'}类型!!!`)
+        }
+        if (findAmountLast(amount)) {
+            return changeAmount(changeStrLast(amount, ''))
+        }
+        process(amount)
+        if (Number(amount)) {
+            console.log('保存', selected)
+        }
+
     }
 
     return (

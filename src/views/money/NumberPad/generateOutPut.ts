@@ -1,7 +1,6 @@
+import {  strLimit, strFirst, strLast, changeStrLast, calculate } from "utils"
 
-const strLimit = (value: string, sign: string) => {
-    return value.split('').filter(i => i === sign).length
-}
+
 
 export const generateOutPut = (text: string, value = '0') => {
     switch (text) {
@@ -21,30 +20,92 @@ export const generateOutPut = (text: string, value = '0') => {
                 return value + text
             }
         case '.':
-            console.log(strLimit(value, '+'))
-
-            if ((strLimit(value, '+')) || (strLimit(value, '-'))){
-                if (strLimit(value, '.') > 1) {
-                    return value
-                }else{
-                    return value + '.'
+            if ((strLimit(value, '+')) || (strLimit(value, '-'))) {
+                // 负数
+                if (strFirst(value) === '-') {
+                    if (strLimit(value, '-') > 1 && strLimit(value.split('-')[2], '.')) {
+                        return value
+                    } else if (strLimit(value, '+') && strLimit(value.split('+')[1], '.')) {
+                        return value
+                    } else {
+                        return value + '.'
+                    }
+                } else {
+                    if (strLimit(value, '+') && strLimit(value.split('+')[1], '.')) {
+                        return value
+                    } else if (strLimit(value, '-') && strLimit(value.split('-')[1], '.')) {
+                        return value
+                    } else {
+                        return value + '.'
+                    }
                 }
-            }else{
-                if (strLimit(value, '.') === 1) {
+            } else {
+                if (strLimit(value, '.')) {
                     return value
-                }else{
+                } else {
                     return value + '.'
                 }
             }
         case '+':
-            console.log(strLimit(value, '+'))
-            if (strLimit(value, '+')) {
-                console.log(value)
-                return value
+            if (strLast(value) === '-') {
+                return changeStrLast(value, '+')
             }
-            return value + '+'
+            if (strLimit(value, '+')) {
+                return strLast(value) === '+' ? value : calculate(value, '+') + '+';
+            } else {
+                if (strFirst(value) === '-') {
+                    if (strLimit(value, '-') > 1) {
+                        return strLast(value) === '-' ? value : calculate(value, '-') + '-';
+                    } else {
+                        return value + '+'
+                    }
+                } else {
+                    if (strLimit(value, '-')) {
+                        return calculate(value, '-') + '+'
+                    } else {
+                        return value + '+'
+                    }
+                }
+            }
         case '-':
-            return value + '-'
+            // 负数
+            if (strFirst(value) === '-') {
+                if (strLimit(value, '-') > 1) {
+                    if (strLast(value) === '-') {
+                        return value
+                    }
+                    if (strLast(value) === '+') {
+                        return changeStrLast(value, '+')
+                    }
+                    return calculate(value, '-') + '-'
+                } else {
+                    if (strLast(value) === '+') {
+                        return changeStrLast(value, '-')
+                    }
+                    return strLimit(value, '+') ? calculate(value, '+') + '-' : value + '-';
+                }
+            } else {
+                if (strLimit(value, '-')) {
+                    if (strLast(value) === '-') {
+                        return value
+                    }
+                    if (strLimit(value, '+')) {
+                        if (strLast(value) === '+') {
+                            return value
+                        }
+                        return calculate(value, '+') + '-'
+                    }
+                    return calculate(value, '-') + '-'
+                } else {
+                    if (strLimit(value, '+')) {
+                        if (strLast(value) === '+') {
+                            return changeStrLast(value, '-')
+                        }
+                        return calculate(value, '+') + '-'
+                    }
+                    return value + '-'
+                }
+            }
         case '删除':
             if (value.length === 1) {
                 return '0'
