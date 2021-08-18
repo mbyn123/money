@@ -10,7 +10,6 @@ export const changeStrLast = (value: string, sign: string) => value.substring(0,
 
 export const calculate = (value: string, sign: signType) => {
     let mumberArr = value.split(sign)
-    console.log(mumberArr)
     let a = 0
     let b = 0
     // 负数

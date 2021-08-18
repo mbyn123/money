@@ -63,7 +63,11 @@ export const Money: React.FC = () => {
             return changeAmount(changeStrLast(amount, ''))
         }
         process(amount)
-        if (Number(amount)) {
+        let _amount = Number(amount)
+        if (_amount === 0) {
+            return window.alert('请输入金额')
+        }
+        if (_amount) {
             console.log('保存', selected)
         }
 
