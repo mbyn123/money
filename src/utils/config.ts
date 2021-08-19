@@ -1,3 +1,4 @@
+import { UnitTypeShort } from "dayjs"
 import { _tagType } from "hooks/useTags"
 
 // 支出
@@ -95,6 +96,15 @@ export const tagTypeList: _tagTypeList[] = [
 export const payment_type = {
     '+': 'income',
     '-': 'expend',
-   
+
 }
 
+export const week:any = {
+    0: '天',
+    1: '一',
+    2: '二',
+    3: '三',
+    4: '四',
+    5: '五',
+    6: '六'
+}

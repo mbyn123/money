@@ -5,20 +5,21 @@ import { Tags } from './Tags';
 import { Note } from './Note';
 import { NumberPad } from './NumberPad';
 import { useVsible } from 'hooks/useVsible';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { tagTypeList } from 'utils/config';
 import { _tagType } from 'hooks/useTags';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs'
 import { calculate, changeStrLast, signType, strFirst, strLast, strLimit } from 'utils';
+import { useRecord } from 'hooks/useRecord';
 
 
 
 export const Money: React.FC = () => {
-    const { visible, close, time } = useVsible({ url: '/bill' })
+    const {push} = useHistory()
     const location = useLocation()
-    let query = qs.parse(location.search)['?type']
-
+    const query = qs.parse(location.search)['?type']
+    const { visible, close, time } = useVsible({ url: '/bill' })
     const [selected, setSelected] = useState({
         selectType: query ? (query === 'income' ? '+' : '-') : tagTypeList[0].type as _tagType,
         selectTag: 0 as number,
@@ -26,6 +27,7 @@ export const Money: React.FC = () => {
         amount: '0'
     })
 
+    const { addRecord } = useRecord()
 
     const onChange = (val: Partial<typeof selected>) => setSelected({ ...selected, ...val })
 
@@ -33,25 +35,26 @@ export const Money: React.FC = () => {
 
     const findAmountLast = (amount: string) => ['+', '-'].includes(strLast(amount))
 
-    const compute = (amount: string, sign: signType) => changeAmount(calculate(amount, sign).toString())
+    const computed = (amount: string, sign: signType) => changeAmount(calculate(amount, sign).toString())
 
     const process = (amount: string) => {
         // 负数
         if (strFirst(amount) === '-') {
             if (strLimit(amount, '-') > 1) {
-                compute(amount, '-')
+                computed(amount, '-')
             }
             if ((strLimit(amount, '+'))) {
-                compute(amount, '+')
+                computed(amount, '+')
             }
         } else {
             if (strLimit(amount, '-')) {
-                compute(amount, '-')
+                computed(amount, '-')
             }
             if (strLimit(amount, '+')) {
-                compute(amount, '+')
+                computed(amount, '+')
             }
         }
+
     }
 
     const onOk = () => {
@@ -59,18 +62,18 @@ export const Money: React.FC = () => {
         if (!selectTag) {
             return window.alert(`请选择${selectType === '-' ? '支出' : '收入'}类型!!!`)
         }
+        if (Number(amount) === 0) {
+            return window.alert('请输入金额')
+        }
         if (findAmountLast(amount)) {
             return changeAmount(changeStrLast(amount, ''))
         }
         process(amount)
-        let _amount = Number(amount)
-        if (_amount === 0) {
-            return window.alert('请输入金额')
-        }
-        if (_amount) {
+        if (Number(amount)) {
             console.log('保存', selected)
+            addRecord({ ...selected, creationTime: new Date().toISOString() })
+            push('/bill')
         }
-
     }
 
     return (

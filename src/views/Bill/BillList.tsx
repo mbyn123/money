@@ -1,129 +1,47 @@
+import { spawn } from "child_process"
 import { Tag } from "components/Tag"
+import { recordItem } from "hooks/useRecord"
 import styled from "styled-components"
 
-export const BillList = () => {
+
+type props = {
+    recordList: any
+}
+
+export const BillList: React.FC<props> = ({ recordList }) => {
     return (
         <Wrapper>
-            <ListWrapper>
-                <Header>
-                    <div className="time-wrapper">
-                        <span className="date">08月12日</span>
-                        <span className="date">星期四</span>
-                    </div>
-                    <div className="type-wrapper">
-                        <span className="type-item">收入：33</span>
-                        <span className="type-item">支出：33.56</span>
-                    </div>
-                </Header>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-            </ListWrapper>
-            <ListWrapper>
-                <Header>
-                    <div className="time-wrapper">
-                        <span className="date">08月12日</span>
-                        <span className="date">星期四</span>
-                    </div>
-                    <div className="type-wrapper">
-                        <span className="type-item">收入：33</span>
-                        <span className="type-item">支出：33.56</span>
-                    </div>
-                </Header>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-            </ListWrapper>
-            <ListWrapper>
-                <Header>
-                    <div className="time-wrapper">
-                        <span className="date">08月12日</span>
-                        <span className="date">星期四</span>
-                    </div>
-                    <div className="type-wrapper">
-                        <span className="type-item">收入：33</span>
-                        <span className="type-item">支出：33.56</span>
-                    </div>
-                </Header>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-                <ListItem>
-                     <div className="tag-wrapper">
-                         <Tag icon="yule"></Tag>
-                          <div className="name">购物</div>
-                     </div>
-                     <div className="price">-66.6</div>
-                </ListItem>
-            </ListWrapper>
+            {
+                recordList.map(([date, data]: any) => (
+                    <ListWrapper key={date}>
+                        <Header>
+                            <div className="time-wrapper">
+                                <span className="date">{date}</span>
+                            </div>
+                            <div className="type-wrapper">
+                                <span className="type-item">收入：33</span>
+                                <span className="type-item">支出：33.56</span>
+                            </div>
+                        </Header>
+                        {
+                            data.map((item: any,index:any) => (
+                                <ListItem key={index}>
+                                    <div className="tag-wrapper">
+                                        <Tag icon="yule"></Tag>
+                                        <div className="name">{item.note?item.note:'xxx'}</div>
+                                    </div>
+                                    <div className="price">
+                                        {item.selectType === '-' && <span>-</span>}
+                                        {item.amount}</div>
+                                </ListItem>
+                            ))
+                        }
+
+                    </ListWrapper>
+                ))
+            }
+
+
         </Wrapper>
     )
 }
