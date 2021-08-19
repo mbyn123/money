@@ -1,34 +1,48 @@
-import { spawn } from "child_process"
 import { Tag } from "components/Tag"
 import { recordItem } from "hooks/useRecord"
+import { useAllTags } from "hooks/useTags"
 import styled from "styled-components"
 
 
 type props = {
-    recordList: any
+    recordList: any[]
 }
 
 export const BillList: React.FC<props> = ({ recordList }) => {
+    const { findIcon } = useAllTags()
+
+    const findTagName = (id: number) => {
+        let data
+        const _tags = window.localStorage.getItem('tags')
+        if (_tags) {
+            data = JSON.parse(_tags)
+            let arr = data['+'].concat(data['-'])
+            console.log(arr)
+            return arr.filter((item: any) => item.id === id)[0]['name']
+        }
+       
+    }
+
     return (
         <Wrapper>
             {
-                recordList.map(([date, data]: any) => (
+                recordList.map(([date, data, sum]) => (
                     <ListWrapper key={date}>
                         <Header>
                             <div className="time-wrapper">
                                 <span className="date">{date}</span>
                             </div>
                             <div className="type-wrapper">
-                                <span className="type-item">收入：33</span>
-                                <span className="type-item">支出：33.56</span>
+                                {sum['+'] > 0 && <span className="type-item">收入：{sum['+']}</span>}
+                                {sum['-'] > 0 && <span className="type-item">支出：{sum['-']}</span>}
                             </div>
                         </Header>
                         {
-                            data.map((item: any,index:any) => (
+                            data.map((item: recordItem, index: number) => (
                                 <ListItem key={index}>
                                     <div className="tag-wrapper">
-                                        <Tag icon="yule"></Tag>
-                                        <div className="name">{item.note?item.note:'xxx'}</div>
+                                        <Tag icon={findIcon(item.selectTag)}></Tag>
+                                        <div className="name">{item.note ? item.note : findTagName(item.selectTag)}</div>
                                     </div>
                                     <div className="price">
                                         {item.selectType === '-' && <span>-</span>}

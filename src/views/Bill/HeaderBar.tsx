@@ -1,27 +1,38 @@
 import React from "react"
 import styled from "styled-components"
+import day from 'dayjs'
 
-export const HeaderBar: React.FC = () => {
+type props = {
+    total: {
+        '+': number,
+        '-': number
+    }
+}
+
+export const HeaderBar: React.FC<props> = ({ total }) => {
+    const today = new Date().toISOString()
+    let income = total['+'].toString().split(".")
+    let expend = total['-'].toString().split(".")
     return (
         <Wrapper>
             <Tiltle>账单</Tiltle>
             <DataBar>
                 <DateWrapper>
-                    <div className="year">2021年</div>
-                    <div className="month">08<span className="label">月</span></div>
+                    <div className="year">{day(today).format('YYYY年')}</div>
+                    <div className="month">{day(today).format('MM')}<span className="label">月</span></div>
                 </DateWrapper>
                 <TotalWrapper>
                     <div className="total-item">
                         <div className="label">收入</div>
                         <div className="num">
-                            <span>2</span>
-                            <span className="decimals">.00</span></div>
+                            <span>{income[0]}</span>
+                            <span className="decimals">.{income[1]}</span></div>
                     </div>
                     <div className="total-item">
                         <div className="label">支出</div>
                         <div className="num">
-                            <span>2</span>
-                            <span className="decimals">.00</span>
+                            <span>{expend[0]}</span>
+                            <span className="decimals">.{expend[1]}</span>
                         </div>
                     </div>
                 </TotalWrapper>

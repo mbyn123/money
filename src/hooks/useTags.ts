@@ -41,7 +41,7 @@ export const useTags = (type: _tagType) => {
     }
 
     const deleteTags = (id: number) => {
-        let _data = { ...data, [type]: [...tags.filter((item:tagItem) => item.id !== id)] }
+        let _data = { ...data, [type]: [...tags.filter((item: tagItem) => item.id !== id)] }
         setData(_data)
         window.localStorage.setItem('tags', JSON.stringify(_data))
     }
@@ -49,6 +49,8 @@ export const useTags = (type: _tagType) => {
     const findTags = (key: keyof tagItem, value: number | string) => {
         return tags.find(item => item[key] === value)
     }
+
+   
 
     return {
         tags,
@@ -62,14 +64,22 @@ export const useTags = (type: _tagType) => {
 
 export const useAllTags = () => {
     const [allTags,] = useState<allTagItem[]>(TagList['all'])
-    
+
     const findAllTags = (typeId: number, iconId: number) => {
         return allTags.filter(item => item.typeId === typeId)[0]?.iconList.filter(item => item.id === iconId)[0]
     }
+
+    const findIcon = (iconId: number) => {
+        let arr: any = []
+        allTags.forEach(item => item.iconList.forEach(item => arr.push(item)))
+        return arr.filter((item: any) => item.id === iconId)[0]['icon']
+
+    }
+
     return {
         allTags,
         findAllTags,
-
+        findIcon
     }
 
 }

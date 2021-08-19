@@ -5,7 +5,7 @@ import { Tags } from './Tags';
 import { Note } from './Note';
 import { NumberPad } from './NumberPad';
 import { useVsible } from 'hooks/useVsible';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { tagTypeList } from 'utils/config';
 import { _tagType } from 'hooks/useTags';
 import { useHistory, useLocation } from 'react-router-dom';

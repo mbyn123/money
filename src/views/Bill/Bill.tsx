@@ -5,35 +5,52 @@ import { BillList } from "./BillList"
 import { HeaderBar } from "./HeaderBar"
 import day from 'dayjs'
 import { week } from "utils/config"
-import { changeStrLast, strLast } from "utils"
+import { arrayFilter, arraySum, changeStrLast, strLast, totalSum } from "utils"
 
 export const Bill = () => {
     const { record } = useRecord()
-    // console.log(record)
 
     const hash: { [key: string]: recordItem[] } = {}
 
-   record.forEach(item => {
+    const summary = (date: string, value: recordItem[]) => {
+        const income = arrayFilter<recordItem>(value, 'selectType', '+')
+        const expend = arrayFilter(value, 'selectType', '-')
+        return {
+            '+': arraySum<recordItem>(income, 'amount'),
+            '-': arraySum<recordItem>(expend, 'amount')
+        }
+    }
+
+    record.forEach(item => {
         const key = day(item.creationTime).format(`MM月DD日 星期d`)
         if (!(key in hash)) {
             hash[key] = []
         }
         hash[key].push(item)
-        
+
     })
 
-    const recordList = Object.entries(hash).sort((a,b)=>{
-        if(a[0] === b[0]) return 0
-        if(a[0] > b[0]) return -1
-        if(a[0] < b[0]) return 1
-        return 0
-    }).map(([date,data])=> [changeStrLast(date,week[strLast(date)]),[...data]])
-    console.log(recordList)
 
+
+    const recordList = Object.entries(hash).sort((a, b) => {
+        if (a[0] === b[0]) return 0
+        if (a[0] > b[0]) return -1
+        if (a[0] < b[0]) return 1
+        return 0
+    }).map(([date, data]) => [changeStrLast(date, week[strLast(date)]), [...data], summary(date, data)])
+
+    const total = {
+        '+': totalSum(recordList, '+').toFixed(2),
+        '-': totalSum(recordList, '-').toFixed(2)
+    }
+
+
+
+    console.log()
     return (
         <Layout>
             <Wrapper>
-                <HeaderBar></HeaderBar>
+                <HeaderBar total={total}></HeaderBar>
                 <BillList recordList={recordList}></BillList>
             </Wrapper>
         </Layout>
