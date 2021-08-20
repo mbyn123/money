@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import dateImg from "assets/date.png"
 import { generateOutPut } from "./NumberPad/generateOutPut"
+import { calculate, changeStrLast, signType, strFirst, strLast, strLimit } from "utils"
 
 type Props = {
     value: string,
@@ -23,6 +24,33 @@ export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) =>
         onChange(value)
     }
 
+    // 判断最后一位数
+    const findAmountLast = (output: string) => ['+', '-'].includes(strLast(output))
+
+    const changeAmount = (output: string) => changeNumber(output)
+
+    const computed = (output: string, sign: signType) => changeAmount(calculate(output, sign).toString())
+
+    const process = (output: string) => {
+        // 负数
+        if (strFirst(output) === '-') {
+            if (strLimit(output, '-') > 1) {
+                computed(output, '-')
+            }
+            if ((strLimit(output, '+'))) {
+                computed(output, '+')
+            }
+        } else {
+            if (strLimit(output, '-')) {
+                computed(output, '-')
+            }
+            if (strLimit(output, '+')) {
+                computed(output, '+')
+            }
+        }
+
+    }
+
     const onclickWrapper = (e: React.MouseEvent) => {
         let text = (e.target as HTMLDivElement).textContent
         if (!text) { return }
@@ -30,7 +58,14 @@ export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) =>
         if (text === '今天') {
             return
         }
-        if (text === '完成') {
+        if (text === '=') {
+            if (findAmountLast(output)) {
+                return changeAmount(changeStrLast(output, ''))
+            }
+            process(output)
+          
+        }
+        if(text === '完成'){
             onOk && onOk()
             return
         }
@@ -56,7 +91,7 @@ export const NumberPad: React.FC<Props> = ({ value: output, onChange, onOk }) =>
             <div>.</div>
             <div>0</div>
             <div className="delete-button">删除</div>
-            <div className="submit-button">完成</div>
+            <div className="submit-button">{(Number(output) || output === '0')?'完成':'='}</div>
         </Wrapper>
     )
 }

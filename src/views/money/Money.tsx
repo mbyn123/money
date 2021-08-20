@@ -10,10 +10,7 @@ import { tagTypeList } from 'utils/config';
 import { useAllTags, _tagType } from 'hooks/useTags';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs'
-import { calculate, changeStrLast, signType, strFirst, strLast, strLimit } from 'utils';
 import { useRecord } from 'hooks/useRecord';
-
-
 
 export const Money: React.FC = () => {
     const { push } = useHistory()
@@ -33,31 +30,6 @@ export const Money: React.FC = () => {
 
     const onChange = (val: Partial<typeof selected>) => setSelected({ ...selected, ...val })
 
-    const changeAmount = (amount: string) => setSelected({ ...selected, amount })
-
-    const findAmountLast = (amount: string) => ['+', '-'].includes(strLast(amount))
-
-    const computed = (amount: string, sign: signType) => changeAmount(calculate(amount, sign).toString())
-
-    const process = (amount: string) => {
-        // 负数
-        if (strFirst(amount) === '-') {
-            if (strLimit(amount, '-') > 1) {
-                computed(amount, '-')
-            }
-            if ((strLimit(amount, '+'))) {
-                computed(amount, '+')
-            }
-        } else {
-            if (strLimit(amount, '-')) {
-                computed(amount, '-')
-            }
-            if (strLimit(amount, '+')) {
-                computed(amount, '+')
-            }
-        }
-
-    }
 
     const onOk = () => {
         let { selectType, selectTagId, amount } = selected
@@ -67,23 +39,21 @@ export const Money: React.FC = () => {
         if (Number(amount) === 0) {
             return window.alert('请输入金额')
         }
-        if (findAmountLast(amount)) {
-            return changeAmount(changeStrLast(amount, ''))
+
+        if (!Number(amount)) {
+            return
         }
-        process(amount)
-        if (Number(amount)) {
-            console.log('保存', selected)
-            addRecord({
-                ...selected,
-                creationTime: new Date().toISOString(),
-                id: record.length + 1,
-                selectTag: {
-                    icon: findIcon(selected.selectTagId),
-                    name: findTagName(selected.selectTagId)
-                }
-            })
-            push('/bill')
-        }
+        console.log('保存', selected)
+        addRecord({
+            ...selected,
+            creationTime: new Date().toISOString(),
+            id: record.length + 1,
+            selectTag: {
+                icon: findIcon(selected.selectTagId),
+                name: findTagName(selected.selectTagId)
+            }
+        })
+        push('/bill')
     }
 
     return (

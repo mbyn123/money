@@ -1,6 +1,4 @@
-import {  strLimit, strFirst, strLast, changeStrLast, calculate } from "utils"
-
-
+import { strLimit, strFirst, strLast, changeStrLast, calculate } from "utils"
 
 export const generateOutPut = (text: string, value = '0') => {
     switch (text) {

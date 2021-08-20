@@ -8,7 +8,7 @@ import { week } from "utils/config"
 import { arrayFilter, arraySum, changeStrLast, strLast, totalSum } from "utils"
 
 export const Bill = () => {
-    const { record } = useRecord()
+    const { record, setRecord } = useRecord()
 
     const hash: { [key: string]: recordItem[] } = {}
 
@@ -30,8 +30,6 @@ export const Bill = () => {
 
     })
 
-
-
     const recordList = Object.entries(hash).sort((a, b) => {
         if (a[0] === b[0]) return 0
         if (a[0] > b[0]) return -1
@@ -44,14 +42,16 @@ export const Bill = () => {
         '-': totalSum(recordList, '-').toFixed(2)
     }
 
+    const refresh = (value: recordItem[]) => {
+        setRecord(value)
+    }
 
-
-    console.log()
+    // console.log(recordList)
     return (
         <Layout>
             <Wrapper>
                 <HeaderBar total={total}></HeaderBar>
-                <BillList recordList={recordList}></BillList>
+                <BillList recordList={recordList} refresh={refresh}></BillList>
             </Wrapper>
         </Layout>
     )
