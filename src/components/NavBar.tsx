@@ -9,7 +9,7 @@ export const NavBar = () => {
                 <li>
                     <NavLink to="/bill" activeClassName="selected">
                         <Icon name="detail"></Icon>
-                        <div>明细</div>
+                        <div>账单</div>
                     </NavLink >
                 </li>
                 <li>
@@ -44,6 +44,7 @@ const Nav = styled.div`
       align-items: center;
       justify-content: center;
       color: #585757;
+      font-size:1.4rem;
       .icon{
           fill:#585757;
       }

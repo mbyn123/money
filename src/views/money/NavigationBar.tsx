@@ -33,7 +33,7 @@ export const NavigationBar: React.FC<Props> = ({ value, onChange, close }) => {
 }
 
 const Wrapper = styled.div`
-height: 6rem;
+height: 5rem;
 display: flex;
 align-items: flex-end;
 background: #FFDA44;
