@@ -33,6 +33,8 @@ export const generateOutPut = (text: string, value = '0') => {
                         return value
                     } else if (strLimit(value, '-') && strLimit(value.split('-')[1], '.')) {
                         return value
+                    } else if (['+', '-'].includes(strLast(value))) {
+                        return value
                     } else {
                         return value + '.'
                     }

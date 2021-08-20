@@ -49,11 +49,31 @@ export const BillList: React.FC<props> = ({ recordList, refresh }) => {
 
     const reset = () => setSelect({ ...select, id: 0, type: 'tag' })
 
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        console.log(e.touches)
+    }
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        console.log(e.touches)
+    }
+    
+    const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+        console.log(e.touches)
+    }
+
+
+    const moveStyle = {
+        transform: 'translateX(-5rem)',
+        WebkitTransform: 'translateX(-5rem)',
+        transition: 'transform 0.3s ease',
+        WebkitTransition: 'transform 0.3s ease'
+    }
+
     return (
         <Wrapper>
             {
                 recordList.map(([date, data, sum]) => (
-                    <ListWrapper key={date}>
+                    <div key={date}>
                         <Header>
                             <div className="time-wrapper">
                                 <span className="date">{date}</span>
@@ -65,41 +85,51 @@ export const BillList: React.FC<props> = ({ recordList, refresh }) => {
                         </Header>
                         {
                             data.map((item: recordItem) => (
-                                <ListItem key={item.id} >
-                                    <TagWrapper >
-                                        <Tag icon={item.selectTag.icon}></Tag>
-                                        {
-                                            select.id === item.id && select.type === 'tag' ? (
-                                                <TagInput>
-                                                    <input
-                                                        type="text"
-                                                        className='put'
-                                                        autoFocus
-                                                        value={select.value}
-                                                        onChange={(e) => { setSelect({ ...select, value: e.target.value }) }}
-                                                        onKeyDown={(e) => onFinish(e)}
-                                                        onBlur={reset}
-                                                    />
-                                                </TagInput>
-                                            ) : (
-                                                <div className="name" onClick={() => changeRecord(item, 'tag')}>{item.note ? item.note : item.selectTag.name}</div>
-                                            )
-                                        }
-                                    </TagWrapper>
-                                    {
-                                        select.id === item.id && select.type === 'price' ? (
-                                            <PriceInput>{select.value}</PriceInput>
-                                        ) : (
-                                            <PriceWrapper onClick={() => changeRecord(item, 'price')}>
-                                                {item.selectType === '-' && <span>-</span>}
-                                                {item.amount}
-                                            </PriceWrapper>
-                                        )
-                                    }
+                                <ListItem
+                                    key={item.id}
+                                    onTouchStart={(e) => handleTouchStart(e)}
+                                    onTouchMove={(e) => handleTouchMove(e)}
+                                    onTouchEnd={(e) => handleTouchEnd(e)}
+                                >
+                                    <div className="wrapper" style={select.id === item.id ? moveStyle : {}}>
+                                        <div className='left'>
+                                            <TagWrapper >
+                                                <Tag icon={item.selectTag.icon}></Tag>
+                                                {
+                                                    select.id === item.id && select.type === 'tag' ? (
+                                                        <TagInput>
+                                                            <input
+                                                                type="text"
+                                                                className='put'
+                                                                autoFocus
+                                                                value={select.value}
+                                                                onChange={(e) => { setSelect({ ...select, value: e.target.value }) }}
+                                                                onKeyDown={(e) => onFinish(e)}
+                                                                onBlur={reset}
+                                                            />
+                                                        </TagInput>
+                                                    ) : (
+                                                        <div className="name" onClick={() => changeRecord(item, 'tag')}>{item.note ? item.note : item.selectTag.name}</div>
+                                                    )
+                                                }
+                                            </TagWrapper>
+                                            {
+                                                select.id === item.id && select.type === 'price' ? (
+                                                    <PriceInput>{select.value}</PriceInput>
+                                                ) : (
+                                                    <PriceWrapper onClick={() => changeRecord(item, 'price')}>
+                                                        {item.selectType === '-' && <span>-</span>}
+                                                        {item.amount}
+                                                    </PriceWrapper>
+                                                )
+                                            }
+                                        </div>
+                                        <div className='right'> 删除 </div>
+                                    </div>
                                 </ListItem>
                             ))
                         }
-                    </ListWrapper>
+                    </div>
                 ))
             }
             {
@@ -136,19 +166,39 @@ border-bottom: 1px solid #EAEAEA;
 }
 `
 
-const ListWrapper = styled.div`
-
-`
 
 const ListItem = styled.div`
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding:1rem 1.5rem;
+
 border-bottom: 1px solid #FAFAFA;
 color: #555454;
+width: 100vw;
+overflow: hidden;
 &:last-child{
     border: none;
+}
+.wrapper{
+    width: calc(100vw + 5rem);
+    
+    position: relative;
+    .left{
+        width: 100vw;
+        display: flex;
+        padding:1rem 1.5rem;
+    }
+    .right{
+        width: 5rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size:1.4rem;
+        color: white;
+        position: absolute;
+        right: 0;
+        top:0;
+        background: #E67365;
+        
+    }
 }
 `
 const TagWrapper = styled.div`

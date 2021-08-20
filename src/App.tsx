@@ -5,7 +5,6 @@ import { TagDetail } from 'views/TagDetail/TagDetail';
 import { NoMatch } from 'views/NoMatch/NoMatch';
 import { Statistics } from 'views/Statistics/Statistics';
 import { TagList } from 'views/TagList/TagList';
-import { BillDetail } from 'views/BillDetail/BillDetail';
 
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/bill" component={Bill} />
-        <Route exact path="/billDetail" component={BillDetail} />
         <Route exact path="/money" component={Money} />
         <Route exact path="/tagList/:type" component={TagList}/>
         <Route exact path="/tagDetail/:type" component={TagDetail} />
@@ -26,19 +24,6 @@ function App() {
     </Router>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default App;
 
