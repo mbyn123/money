@@ -51,7 +51,6 @@ export const TagList = () => {
                 </Header>
                 <Main>
                     <IconList>
-                        <Space></Space>
                         {
                             tags?.map((item: tagItem) => <TagItem key={item.id} clickDelete={clickDelete} item={item} />)
                         }
@@ -138,10 +137,7 @@ position: relative;
 const IconList = styled.div`
 
 `
-const Space = styled.div`
-height: 1rem;
-background: #eeeeee;
-`
+
 
 const AddButton = styled.div`
 height: 4rem;

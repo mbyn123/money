@@ -1,6 +1,5 @@
 import { Tag } from "components/Tag"
 import { recordItem } from "hooks/useRecord"
-import { useAllTags } from "hooks/useTags"
 import styled from "styled-components"
 
 
@@ -9,20 +8,9 @@ type props = {
 }
 
 export const BillList: React.FC<props> = ({ recordList }) => {
-    const { findIcon } = useAllTags()
-
-    const findTagName = (id: number) => {
-        let data
-        const _tags = window.localStorage.getItem('tags')
-        if (_tags) {
-            data = JSON.parse(_tags)
-            let arr = data['+'].concat(data['-'])
-            console.log(arr)
-            return arr.filter((item: any) => item.id === id)[0]['name']
-        }
-       
+    const changeRecord = (val: recordItem)=>{
+       console.log(val)
     }
-
     return (
         <Wrapper>
             {
@@ -38,11 +26,11 @@ export const BillList: React.FC<props> = ({ recordList }) => {
                             </div>
                         </Header>
                         {
-                            data.map((item: recordItem, index: number) => (
-                                <ListItem key={index}>
+                            data.map((item: recordItem) => (
+                                <ListItem key={item.id} onClick={()=>changeRecord(item)}>
                                     <div className="tag-wrapper">
-                                        <Tag icon={findIcon(item.selectTag)}></Tag>
-                                        <div className="name">{item.note ? item.note : findTagName(item.selectTag)}</div>
+                                        <Tag icon={item.selectTag.icon}></Tag>
+                                        <div className="name">{item.note ? item.note : item.selectTag.name}</div>
                                     </div>
                                     <div className="price">
                                         {item.selectType === '-' && <span>-</span>}

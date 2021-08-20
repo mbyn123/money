@@ -73,13 +73,24 @@ export const useAllTags = () => {
         let arr: any = []
         allTags.forEach(item => item.iconList.forEach(item => arr.push(item)))
         return arr.filter((item: any) => item.id === iconId)[0]['icon']
+    }
+
+    const findTagName = (id: number) => {
+        const _tags = window.localStorage.getItem('tags')
+        if (_tags) {
+            let data = JSON.parse(_tags)
+            let arr = data['+'].concat(data['-'])
+            return arr.filter((item: any) => item.id === id)[0]['name']
+        }
+        return ''
 
     }
 
     return {
         allTags,
         findAllTags,
-        findIcon
+        findIcon,
+        findTagName
     }
 
 }

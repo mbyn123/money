@@ -38,7 +38,7 @@ flex-direction: column;
     padding:.8rem;
    .icon{
     fill:#555454;
-    font-size: 1rem;
+    font-size: 1.5rem;
    }
 }
  .name{

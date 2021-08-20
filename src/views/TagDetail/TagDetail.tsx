@@ -139,6 +139,7 @@ border-bottom:1px solid #E5E6E6;
   outline: none;
   border: none;
   margin-left: 1rem;
+  font-size: 1.5rem;
 }
 `
 

@@ -7,7 +7,7 @@ import { NumberPad } from './NumberPad';
 import { useVsible } from 'hooks/useVsible';
 import { useState } from 'react';
 import { tagTypeList } from 'utils/config';
-import { _tagType } from 'hooks/useTags';
+import { useAllTags, _tagType } from 'hooks/useTags';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'qs'
 import { calculate, changeStrLast, signType, strFirst, strLast, strLimit } from 'utils';
@@ -16,18 +16,20 @@ import { useRecord } from 'hooks/useRecord';
 
 
 export const Money: React.FC = () => {
-    const {push} = useHistory()
+    const { push } = useHistory()
     const location = useLocation()
     const query = qs.parse(location.search)['?type']
     const { visible, close, time } = useVsible({ url: '/bill' })
     const [selected, setSelected] = useState({
         selectType: query ? (query === 'income' ? '+' : '-') : tagTypeList[0].type as _tagType,
-        selectTag: 0 as number,
+        selectTagId: 0 as number,
         note: '',
         amount: '0'
     })
 
-    const { addRecord } = useRecord()
+    const { record, addRecord } = useRecord()
+
+    const { findIcon, findTagName } = useAllTags()
 
     const onChange = (val: Partial<typeof selected>) => setSelected({ ...selected, ...val })
 
@@ -58,8 +60,8 @@ export const Money: React.FC = () => {
     }
 
     const onOk = () => {
-        let { selectType, selectTag, amount } = selected
-        if (!selectTag) {
+        let { selectType, selectTagId, amount } = selected
+        if (!selectTagId) {
             return window.alert(`请选择${selectType === '-' ? '支出' : '收入'}类型!!!`)
         }
         if (Number(amount) === 0) {
@@ -71,7 +73,15 @@ export const Money: React.FC = () => {
         process(amount)
         if (Number(amount)) {
             console.log('保存', selected)
-            addRecord({ ...selected, creationTime: new Date().toISOString() })
+            addRecord({
+                ...selected,
+                creationTime: new Date().toISOString(),
+                id: record.length + 1,
+                selectTag: {
+                    icon: findIcon(selected.selectTagId),
+                    name: findTagName(selected.selectTagId)
+                }
+            })
             push('/bill')
         }
     }
@@ -88,9 +98,9 @@ export const Money: React.FC = () => {
                     close={close}
                     onChange={selectType => onChange({ selectType })} />
                 <Tags
-                    value={selected.selectTag}
+                    value={selected.selectTagId}
                     selectType={selected.selectType}
-                    onChange={selectTag => onChange({ selectTag })} />
+                    onChange={selectTagId => onChange({ selectTagId })} />
                 <Note
                     value={selected.note}
                     amount={selected.amount}
